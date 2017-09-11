@@ -1,0 +1,27 @@
+/Users/dorischeng/Fullstack/Grace Shopper
+├── eslint@4.6.1 
+├── eslint-config-standard@10.2.1 
+├─┬ eslint-plugin-import@2.7.0 
+│ ├── contains-path@0.1.0 
+│ ├─┬ doctrine@1.5.0 
+│ │ └── isarray@1.0.0 
+│ ├── eslint-import-resolver-node@0.3.1 
+│ ├── eslint-module-utils@2.1.1 
+│ ├── lodash.cond@4.5.2 
+│ └─┬ read-pkg-up@2.0.0 
+│   ├─┬ find-up@2.1.0 
+│   │ └─┬ locate-path@2.0.0 
+│   │   ├─┬ p-locate@2.0.0 
+│   │   │ └── p-limit@1.1.0 
+│   │   └── path-exists@3.0.0 
+│   └─┬ read-pkg@2.0.0 
+│     ├─┬ load-json-file@2.0.0 
+│     │ └── strip-bom@3.0.0 
+│     └── path-type@2.0.0 
+├─┬ eslint-plugin-node@5.1.1 
+│ ├─┬ resolve@1.4.0 
+│ │ └── path-parse@1.0.5 
+│ └── semver@5.3.0 
+├── eslint-plugin-promise@3.5.0 
+└── eslint-plugin-standard@3.0.1 
+
