@@ -87,6 +87,7 @@ if (require.main === module) {
     .then(syncDb)
     .then(createApp)
     .then(startListening)
+    .catch(console.error)
 } else {
   createApp()
 }
