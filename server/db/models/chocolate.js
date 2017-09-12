@@ -16,7 +16,7 @@ const Chocolate = db.define('chocolate', {
     allowNull: false
   },
   price: {
-    type: Sequelize.INTEGER
+    type: Sequelize.FLOAT
   },
   stock: {
     type: Sequelize.INTEGER

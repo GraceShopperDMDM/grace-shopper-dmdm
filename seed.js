@@ -17,14 +17,14 @@ const chocolates = [{
   name: 'rocky road',
   category: 'ice cream',
   description: 'very delicious!',
-  price: 10,
+  price: 10.25,
   stock: 15,
   photo: 'daskdsad'
 }, {
   name: 'dark chocolate fudge',
   category: 'fudge',
   description: 'very good!',
-  price: 12,
+  price: 12.50,
   stock: 20,
   photo: 'kkkldsadklasj'
 }]
@@ -32,11 +32,13 @@ const chocolates = [{
 const orders = [{
   shipdate: Date(),
   deliverydate: Date(),
-  status: 'received'
+  status: 'received',
+  userId: 1
 }, {
   shipdate: Date(),
   deliverydate: Date(),
-  status: 'shipped'
+  status: 'shipped',
+  userId: 2
 }]
 
 const reviews = [{
