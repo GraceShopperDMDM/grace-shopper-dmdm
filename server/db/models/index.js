@@ -26,6 +26,9 @@ Chocolate.hasMany(Review)
 Review.belongsTo(User)
 User.hasMany(Review)
 
+Chocolate.belongsTo(Order)
+Order.hasMany(Chocolate)
+
 module.exports = {
   User,
   Chocolate,

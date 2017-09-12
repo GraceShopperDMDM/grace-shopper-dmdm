@@ -26,7 +26,8 @@ const User = db.define('user', {
     type: Sequelize.STRING
   },
   admin: {
-    type: Sequelize.ENUM(true, false)
+    type: Sequelize.ENUM('true', 'false'),
+    allowNull: false
   }
 })
 
