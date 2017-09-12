@@ -8,7 +8,6 @@ const Chocolate = db.define('chocolate', {
   },
   category: {
     type: Sequelize.STRING,
-    unique: true,
     allowNull: false
   },
   description: {
