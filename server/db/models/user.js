@@ -25,9 +25,9 @@ const User = db.define('user', {
   googleId: {
     type: Sequelize.STRING
   },
-  admin: {
-    type: Sequelize.ENUM(true, false)
-  }
+  // admin: {
+  //   type: Sequelize.ENUM(true, false)
+  // }
 })
 
 module.exports = User

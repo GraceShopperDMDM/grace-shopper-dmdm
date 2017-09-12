@@ -22,7 +22,7 @@ router.get('/:id', (req, res, next) => {
 router.get('/type/:type', (req, res, next) => {
   Chocolate.findAll({
     where: {
-      type: req.params.type
+      category: req.params.type
     }
   })
     .then(products => res.json(products))
@@ -30,12 +30,16 @@ router.get('/type/:type', (req, res, next) => {
 })
 
 router.get('/:id/reviews', (req, res, next) => {
-  Chocolate.getReviews({
+  Chocolate.findOne({
     where: {
-      productId: req.params.id
+      id: req.params.id
     }
   })
-    .then(reviews => res.json(reviews))
+    .then(chocolate => {
+      chocolate.getReviews()
+        .then(reviews => res.json(reviews))
+        .catch(console.error)
+    })
     .catch(next)
 })
 

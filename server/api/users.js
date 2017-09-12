@@ -1,10 +1,12 @@
 const router = require('express').Router()
-const { User } = require('../db/models')
+const { User, Order, Review } = require('../db/models')
 module.exports = router
 
 router.get('/', (req, res, next) => {
   User.findAll({
-    attributes: ['id', 'name', 'email', 'address']
+    attributes: {
+      exclude: ['password', 'salt']
+    }
   })
     .then(users => res.json(users))
     .catch(next)
@@ -12,6 +14,9 @@ router.get('/', (req, res, next) => {
 
 router.get('/:id', (req, res, next) => {
   User.findOne({
+    attributes: {
+      exclude: ['password', 'salt']
+    },
     where: {
       id: req.params.id
     }
@@ -21,22 +26,30 @@ router.get('/:id', (req, res, next) => {
 })
 
 router.get('/:id/orders', (req, res, next) => {
-  User.getOrders({
+  User.findOne({
     where: {
-      userId: req.params.id
+      id: req.params.id
     }
   })
-    .then(orders => res.json(orders))
+    .then(user => {
+      user.getOrders()
+        .then(orders => res.json(orders))
+        .catch(console.error)
+    })
     .catch(next)
 })
 
 router.get('/:id/reviews', (req, res, next) => {
-  User.getReviews({
+  User.findOne({
     where: {
-      userId: req.params.id
+      id: req.params.id
     }
   })
-    .then(reviews => res.json(reviews))
+    .then(user => {
+      user.getReviews()
+        .then(reviews => res.json(reviews))
+        .catch(console.error)
+    })
     .catch(next)
 })
 
@@ -59,10 +72,20 @@ router.put('/:id', (req, res, next) => {
     .catch(next)
 })
 
-// router.post('/:id/orders', (req, res, next) => {
-//   Order.create(req.body)
-//     .then(order => {
-//       order.setUser()
-//     })
-//     .catch(next)
-// })
+router.post('/:id/orders', (req, res, next) => {
+  User.findbyId(req.params.id)
+    .then(user => {
+      Order.create(req.body)
+        .then(order => user.setOrder(order))
+    })
+    .catch(next)
+})
+
+router.post('/:id/reviews', (req, res, next) => {
+  User.findbyId(req.params.id)
+    .then(user => {
+      Review.create(req.body)
+        .then(review => user.setOrder(review))
+    })
+    .catch(next)
+})
