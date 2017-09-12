@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Chocolate} = require('../db/models')
+const { Chocolate } = require('../db/models')
 module.exports = router
 
 router.get('/', (req, res, next) => {
