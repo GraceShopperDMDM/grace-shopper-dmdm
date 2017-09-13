@@ -7,7 +7,15 @@ const ChocolateOrder = db.define('chocolateOrder', {
   },
   purchasedPrice: {
     type: Sequelize.FLOAT
+  },
+  totalPrice: {
+    type: Sequelize.FLOAT
   }
+
+})
+
+ChocolateOrder.hook('afterValidate', (chocolateOrder) => {
+  chocolateOrder.totalPrice = chocolateOrder.quantity * chocolateOrder.purchasedPrice
 })
 
 module.exports = ChocolateOrder
