@@ -9,7 +9,7 @@ const Order = db.define('order', {
     type: Sequelize.DATE
   },
   status: {
-    type: Sequelize.ENUM('received', 'shipped', 'delivered')
+    type: Sequelize.ENUM('received', 'shipped', 'delivered') // needs defaultVal
   }
 })
 

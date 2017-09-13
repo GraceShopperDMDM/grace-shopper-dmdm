@@ -28,8 +28,8 @@ const User = db.define('user', {
   googleId: {
     type: Sequelize.STRING
   },
-  admin: {
-    type: Sequelize.ENUM('true', 'false'),
+  admin: { // call isAdmin
+    type: Sequelize.BOOLEAN,
     allowNull: false
   }
 })
