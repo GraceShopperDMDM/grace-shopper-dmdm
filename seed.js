@@ -43,10 +43,14 @@ const orders = [{
 
 const reviews = [{
   stars: '5',
-  body: 'this is great!'
+  body: 'this is great!',
+  chocolateId: 1,
+  userId: 1
 }, {
   stars: '1',
-  body: 'this is terrible!'
+  body: 'this is terrible!',
+  chocolateId: 2,
+  userId: 2
 }]
 
 const seed = () =>
@@ -66,7 +70,7 @@ const seed = () =>
 db.sync({force: true})
   .then(() => {
     // return User.create({username: 'Cody', email: 'cody@cody.com', address: ''})
-    console.log(seed)
+    // console.log(seed)
     return seed()
   })
   .then(() => {
