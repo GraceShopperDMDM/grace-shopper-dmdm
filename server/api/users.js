@@ -2,25 +2,25 @@ const router = require('express').Router()
 const { User, Order, Review, Chocolate } = require('../db/models')
 module.exports = router
 
-const isAuthenticated = (req, res, next) => {
-  if (!req.isAuthenticated()) { // or !req.user
-    const error = new Error('Please log in')
-    error.status = 401
-    return next(error)
-  } else {
-    next()
-  }
-}
+// const isAuthenticated = (req, res, next) => {
+//   if (!req.isAuthenticated()) { // or !req.user
+//     const error = new Error('Please log in')
+//     error.status = 401
+//     return next(error)
+//   } else {
+//     next()
+//   }
+// }
 
-const isAdmin = (req, res, next) => {
-  if (req.user && !req.user.isAdmin) {
-    const error = new Error('Please log in')
-    error.status = 401
-    return next(error)
-  } else {
-    next()
-  }
-}
+// const isAdmin = (req, res, next) => {
+//   if (req.user && !req.user.isAdmin) {
+//     const error = new Error('Please log in')
+//     error.status = 401
+//     return next(error)
+//   } else {
+//     next()
+//   }
+// }
 
 router.get('/', (req, res, next) => {
   User.findAll({
