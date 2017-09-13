@@ -1,0 +1,61 @@
+## USER
+  ## POST
+
+    curl -H "Content-Type: application/json" -X POST -d '{"username":"Tom", "email": "tom@tom.com", "address": "133 st., NY, 34900", "password":"1234", "admin": "true"}' http://localhost:8080/api/users
+    curl -H "Content-Type: application/json" -X POST -d '{"username":"John", "email": "john@john.com", "address": "134 st., NY, 34901", "password":"1234", "admin": "true"}' http://localhost:8080/api/users
+
+  ## PUT
+    curl -H "Content-Type: application/json" -X PUT -d '{"username":"Tim", "email": "tim@tim.com", "address": "180 st., NJ, 34900", "password":"1234", "admin": "true"}' http://localhost:8080/api/users/3
+    curl -H "Content-Type: application/json" -X PUT -d '{"username":"John", "email": "john@johnjohn.com", "address": "188 st., CA, 34901", "password":"1234", "admin": "false"}' http://localhost:8080/api/users/4
+
+  ## DELETE
+    curl -H "Content-Type: application/json" -X DELETE -d '{}' http://localhost:8080/api/users/2
+    curl -H "Content-Type: application/json" -X DELETE -d '{}' http://localhost:8080/api/users/1
+
+## PRODUCT
+  ## POST
+
+    curl -H "Content-Type: application/json" -X POST -d '{"name":"oreo chocolate","category":"cookie","description": "amazing!", "price": 14.5, "stock": 30, "photo": "fjkffds"}' http://localhost:8080/api/products
+    DOES CAT NEED TO BE UNIQUE?
+    curl -H "Content-Type: application/json" -X POST -d '{"name":"dark raspberry","category":"fruit","description": "amazing omg!", "price": 15.99, "stock": 30, "photo": "fjkffds"}' http://localhost:8080/api/products
+
+  ## PUT
+    curl -H "Content-Type: application/json" -X PUT -d '{"name":"oreo chocolate","category":"cookie","description": "amazing!", "price": 14.5, "stock": 3, "photo": "fjkffds"}' http://localhost:8080/api/products/3
+    curl -H "Content-Type: application/json" -X PUT -d '{"name":"milk chocolate","category":"fruit","description": "amazing!", "price": 14.5, "stock": 30, "photo": "fjkffds"}' http://localhost:8080/api/products/1
+
+  ## DELETE
+    curl -H "Content-Type: application/json" -X DELETE -d '{}' http://localhost:8080/api/products/1
+    curl -H "Content-Type: application/json" -X DELETE -d '{}' http://localhost:8080/api/products/4
+
+## ORDER
+  ## POST
+    curl -H "Content-Type: application/json" -X POST -d '{
+      "shipdate":"2017-11-12 15:49:46-04",
+      "deliverydate":"2017-12-12 15:49:46-04",
+      "status": "received",
+      "userId": "1"
+    }' http://localhost:8080/api/users/1/orders
+  ## PUT
+    curl -H "Content-Type: application/json" -X PUT -d '{
+      "shipdate":"2017-11-12 15:49:46-04",
+      "deliverydate":"2017-12-12 15:49:46-04",
+      "status": "received",
+      "userId": "1"
+    }' http://localhost:8080/api/orders/1
+  ## DELETE
+    curl -H "Content-Type: application/json" -X DELETE -d '{}' http://localhost:8080/api/orders/1
+## REVIEW
+  ## POST
+    curl -H "Content-Type: application/json" -X POST -d '{
+      "stars":"3",
+      "body":"its all okay, buddy",
+      "chocolateId": "2"
+    }' http://localhost:8080/api/users/1/reviews
+  ## PUT
+    curl -H "Content-Type: application/json" -X PUT -d '{
+      "stars":"3",
+      "body":"its all okay, buddy!!!!",
+      "chocolateId": "2"
+    }' http://localhost:8080/api/users/1/reviews/1
+  ## DELETE
+    curl -H "Content-Type: application/json" -X DELETE -d '{}' http://localhost:8080/api/users/1/reviews/1

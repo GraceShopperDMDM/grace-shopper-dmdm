@@ -57,7 +57,8 @@ router.delete('/:id', (req, res, next) => {
 })
 
 router.put('/:id', (req, res, next) => {
-  Chocolate.findbyId(req.params.id)
+  Chocolate.findById(req.params.id)
     .then(product => product.update(req.body))
+    .then(updatedProduct => res.json(updatedProduct))
     .catch(next)
 })

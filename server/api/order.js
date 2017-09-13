@@ -24,3 +24,10 @@ router.put('/:id', (req, res, next) => {
     .then(updatedOrder => res.json(updatedOrder))
     .catch(next)
 })
+
+router.delete('/:id', (req, res, next) => {
+  const id = req.params.id
+  Order.destroy({ where: {id} })
+    .then(() => res.sendStatus(204))
+    .catch(next)
+})

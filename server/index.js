@@ -4,6 +4,7 @@ const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const session = require('express-session')
 const passport = require('passport')
+// create a session storage table in database
 const SequelizeStore = require('connect-session-sequelize')(session.Store)
 const db = require('./db')
 const sessionStore = new SequelizeStore({db})
@@ -23,7 +24,10 @@ module.exports = app
 if (process.env.NODE_ENV !== 'production') require('../secrets')
 
 // passport registration
+// user.id (2nd arg) uniquely identifies user
+// serialize gets a user and turns it into an id; puts user into a session
 passport.serializeUser((user, done) => done(null, user.id))
+// deserialize gets an id and turns it into a user
 passport.deserializeUser((id, done) =>
   db.models.user.findById(id)
     .then(user => done(null, user))
@@ -38,13 +42,21 @@ const createApp = () => {
   app.use(bodyParser.urlencoded({ extended: true }))
 
   // session middleware with passport
+  // req.session = sessionStorage['1bc']
   app.use(session({
     secret: process.env.SESSION_SECRET || 'my best friend is Cody',
     store: sessionStore,
     resave: false,
     saveUninitialized: false
   }))
+
+  // check to see if there is a req.session; if there is a req.session, give it to passport
+  // req.session.passport
   app.use(passport.initialize())
+
+  // check req.session.passport to see if it has an id on it; if there is an id, we will deserialize it into user
+  // attach the thing we get back and put it into req.user
+  // passport will then execute deserialize user
   app.use(passport.session())
 
   // auth and api routes
