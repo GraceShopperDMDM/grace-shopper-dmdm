@@ -2,6 +2,7 @@ const User = require('./user')
 const Chocolate = require('./chocolate')
 const Review = require('./review')
 const Order = require('./order')
+const Category = require('./category')
 const ChocolateOrder = require('./chocolateOrder')
 
 /**
@@ -23,6 +24,9 @@ Order.belongsTo(User)
 
 Review.belongsTo(Chocolate)
 Chocolate.hasMany(Review)
+
+Chocolate.hasMany(Category)
+Category.belongsTo(Chocolate)
 
 Review.belongsTo(User) // essentially a join table
 User.hasMany(Review)
