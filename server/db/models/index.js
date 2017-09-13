@@ -36,5 +36,6 @@ module.exports = {
   User,
   Chocolate,
   Review,
-  Order
+  Order,
+  ChocolateOrder
 }

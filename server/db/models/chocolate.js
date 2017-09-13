@@ -8,7 +8,6 @@ const Chocolate = db.define('chocolate', {
   },
   category: {
     type: Sequelize.STRING,
-    unique: true,
     allowNull: false
   },
   description: {
@@ -16,13 +15,16 @@ const Chocolate = db.define('chocolate', {
     allowNull: false
   },
   price: {
-    type: Sequelize.FLOAT
+    type: Sequelize.FLOAT,
+    allowNull: false
   },
   stock: {
-    type: Sequelize.INTEGER
+    type: Sequelize.INTEGER,
+    allowNull: false
   },
   photo: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    defaultValue: 'https://www.google.com/search?q=kilwins+chocolate&source=lnms&tbm=isch&sa=X&ved=0ahUKEwi9sITYw6LWAhWq5IMKHcOjB3UQ_AUIDCgD&biw=1776&bih=845#imgrc=yGY-WoNoYQEVVM:'
   }
 })
 

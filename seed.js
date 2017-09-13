@@ -1,5 +1,5 @@
 const db = require('./server/db')
-const { User, Order, Chocolate, Review } = require('./server/db/models')
+const { User, Order, Chocolate, Review, ChocolateOrder } = require('./server/db/models')
 
 const users = [{
   username: 'Cody',
@@ -53,6 +53,19 @@ const reviews = [{
   userId: 2
 }]
 
+const chocolateOrders = [{
+  quantity: 5,
+  purchasedPrice: 12.5,
+  orderId: 1,
+  chocolateId: 1
+
+}, {
+  quantity: 4,
+  purchasedPrice: 8.25,
+  orderId: 2,
+  chocolateId: 2
+}]
+
 const seed = () =>
   Promise.all(users.map(user =>
     User.create(user))
@@ -65,6 +78,9 @@ const seed = () =>
     )).then(() =>
     Promise.all(reviews.map(review =>
       Review.create(review))
+    )).then(() =>
+    Promise.all(chocolateOrders.map(chocolateOrder =>
+      ChocolateOrder.create(chocolateOrder))
     ))
 
 db.sync({force: true})
