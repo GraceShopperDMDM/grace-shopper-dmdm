@@ -1,28 +1,10 @@
 const router = require('express').Router()
 const { User, Order, Review, Chocolate } = require('../db/models')
+const { isAdmin, isAuthenticated, selfOrAdmin } = require('../utils/gatekeepers')
 module.exports = router
 
-// const isAuthenticated = (req, res, next) => {
-//   if (!req.isAuthenticated()) { // or !req.user
-//     const error = new Error('Please log in')
-//     error.status = 401
-//     return next(error)
-//   } else {
-//     next()
-//   }
-// }
-
-// const isAdmin = (req, res, next) => {
-//   if (req.user && !req.user.isAdmin) {
-//     const error = new Error('Please log in')
-//     error.status = 401
-//     return next(error)
-//   } else {
-//     next()
-//   }
-// }
-
-router.get('/', (req, res, next) => {
+// only admins can get all users
+router.get('/', isAuthenticated, isAdmin, (req, res, next) => {
   User.findAll({
     attributes: {
       exclude: ['password', 'salt']
@@ -32,7 +14,8 @@ router.get('/', (req, res, next) => {
     .catch(next)
 })
 
-router.get('/:id', (req, res, next) => {
+// only authenticated users who match that id or admin users can get the user
+router.get('/:id', selfOrAdmin, (req, res, next) => {
   User.findOne({
     attributes: {
       exclude: ['password', 'salt']
@@ -96,7 +79,7 @@ router.post('/:id/orders', (req, res, next) => {
   User.findById(req.params.id)
     .then(user => {
       Order.create(req.body)
-        .then(order => user.addOrder(order)) // double check - changed from user.setOrders()
+        .then(order => user.addOrder(order))
         .then(newOrder => res.json(newOrder))
     })
     .catch(next)
@@ -106,7 +89,7 @@ router.post('/:id/reviews', (req, res, next) => {
   User.findById(req.params.id)
     .then(user => {
       Review.create(req.body)
-        .then(review => user.addReview(review)) // double check - changed from user.setReviews()
+        .then(review => user.addReview(review))
         .then(newReview => res.json(newReview))
     })
     .catch(next)
