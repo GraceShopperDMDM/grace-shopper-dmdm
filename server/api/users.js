@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { User, Order, Review } = require('../db/models')
+const { User, Order, Review, Chocolate } = require('../db/models')
 module.exports = router
 
 router.get('/', (req, res, next) => {
@@ -32,7 +32,9 @@ router.get('/:id/orders', (req, res, next) => {
     }
   })
     .then(user => {
-      user.getOrders()
+      user.getOrders({
+        include: [{model: Chocolate, as: 'chocolates'}]
+      })
         .then(orders => res.json(orders))
         .catch(console.error)
     })
