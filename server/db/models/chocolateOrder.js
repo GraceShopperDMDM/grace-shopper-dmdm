@@ -6,15 +6,15 @@ const ChocolateOrder = db.define('chocolateOrder', {
     type: Sequelize.INTEGER
   },
   purchasedPrice: {
-    type: Sequelize.FLOAT
+    type: Sequelize.INTEGER
   },
   totalPrice: {
-    type: Sequelize.FLOAT
+    type: Sequelize.INTEGER
   }
 
 })
 
-ChocolateOrder.hook('afterValidate', (chocolateOrder) => {
+ChocolateOrder.hook('afterValidate', (chocolateOrder) => { // replace with getterMethod
   chocolateOrder.totalPrice = chocolateOrder.quantity * chocolateOrder.purchasedPrice
 })
 

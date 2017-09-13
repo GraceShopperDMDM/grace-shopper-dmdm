@@ -96,7 +96,7 @@ router.post('/:id/orders', (req, res, next) => {
   User.findById(req.params.id)
     .then(user => {
       Order.create(req.body)
-        .then(order => user.setOrders(order))
+        .then(order => user.addOrder(order)) // double check - changed from user.setOrders()
         .then(newOrder => res.json(newOrder))
     })
     .catch(next)
@@ -106,7 +106,7 @@ router.post('/:id/reviews', (req, res, next) => {
   User.findById(req.params.id)
     .then(user => {
       Review.create(req.body)
-        .then(review => user.setReviews(review))
+        .then(review => user.addReview(review)) // double check - changed from user.setReviews()
         .then(newReview => res.json(newReview))
     })
     .catch(next)

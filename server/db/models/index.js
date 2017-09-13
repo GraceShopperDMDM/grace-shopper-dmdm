@@ -24,12 +24,12 @@ Order.belongsTo(User)
 Review.belongsTo(Chocolate)
 Chocolate.hasMany(Review)
 
-Review.belongsTo(User)
+Review.belongsTo(User) // essentially a join table
 User.hasMany(Review)
 
 // Chocolate.hasMany(Order)
 // Order.hasMany(Chocolate)
-Order.belongsToMany(Chocolate, {through: ChocolateOrder})
+Order.belongsToMany(Chocolate, {through: ChocolateOrder}) // literally a model
 Chocolate.belongsToMany(Order, {through: ChocolateOrder})
 
 module.exports = {

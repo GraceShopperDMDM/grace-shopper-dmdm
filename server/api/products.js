@@ -19,7 +19,7 @@ router.get('/:id', (req, res, next) => {
     .catch(next)
 })
 
-router.get('/type/:type', (req, res, next) => {
+router.get('/type/:type', (req, res, next) => { // use the category model -- /category/:categoryId
   Chocolate.findAll({
     where: {
       category: req.params.type
