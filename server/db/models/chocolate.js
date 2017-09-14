@@ -20,13 +20,20 @@ const Chocolate = db.define('chocolate', {
   },
   stock: { // default val, nonzero validation
     type: Sequelize.INTEGER,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      min: 0
+    }
   },
   photo: {
     type: Sequelize.STRING,
     defaultValue: 'https://www.google.com/search?q=kilwins+chocolate&source=lnms&tbm=isch&sa=X&ved=0ahUKEwi9sITYw6LWAhWq5IMKHcOjB3UQ_AUIDCgD&biw=1776&bih=845#imgrc=yGY-WoNoYQEVVM:'
   }
 })
+
+Chocolate.prototype.editStock = (size) => {
+  this.stock += size
+}
 
 // instance method for increasing/decrementing stock
 // getter method convert price to dollars from cents
