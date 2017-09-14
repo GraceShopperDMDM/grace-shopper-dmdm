@@ -28,8 +28,17 @@ function selfOrAdmin (req, res, next) {
   }
 }
 
+function self (req, res, next) {
+  if (+req.user.id !== +req.params.id) {
+    res.status(403).end()
+  } else {
+    next()
+  }
+}
+
 module.exports = {
   isAuthenticated,
   isAdmin,
-  selfOrAdmin
+  selfOrAdmin,
+  self
 }
