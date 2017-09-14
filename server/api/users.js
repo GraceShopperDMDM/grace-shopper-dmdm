@@ -95,10 +95,21 @@ router.put('/:id', (req, res, next) => {
 router.post('/:id/orders', (req, res, next) => {
   User.findById(req.params.id)
     .then(user => {
-      Order.create(req.body)
+      Order.create(req.body) // req.body.chocolates =[{id, quantity, price}]
         .then(order => user.addOrder(order)) // double check - changed from user.setOrders()
         .then(newOrder => res.json(newOrder))
     })
+    .then(() =>
+      Promise.all(req.body.chocolates.map(chocolate => {
+        let quantity = chocolate.quantity
+        return Chocolate.findById(chocolate.id)
+          .then(foundChocolate => {
+            // console.log(foundChocolate, quantity)
+            return foundChocolate.editStock(-quantity)
+          }
+          )
+      }))
+    )
     .catch(next)
 })
 
