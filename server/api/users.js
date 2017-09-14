@@ -1,28 +1,10 @@
 const router = require('express').Router()
 const { User, Order, Review, Chocolate } = require('../db/models')
+const { isAdmin, isAuthenticated, selfOrAdmin, self } = require('../utils/gatekeepers')
 module.exports = router
 
-// const isAuthenticated = (req, res, next) => {
-//   if (!req.isAuthenticated()) { // or !req.user
-//     const error = new Error('Please log in')
-//     error.status = 401
-//     return next(error)
-//   } else {
-//     next()
-//   }
-// }
-
-// const isAdmin = (req, res, next) => {
-//   if (req.user && !req.user.isAdmin) {
-//     const error = new Error('Please log in')
-//     error.status = 401
-//     return next(error)
-//   } else {
-//     next()
-//   }
-// }
-
-router.get('/', (req, res, next) => {
+// only admins can get all users - WORKS
+router.get('/', isAuthenticated, isAdmin, (req, res, next) => {
   User.findAll({
     attributes: {
       exclude: ['password', 'salt']
@@ -32,7 +14,8 @@ router.get('/', (req, res, next) => {
     .catch(next)
 })
 
-router.get('/:id', (req, res, next) => {
+// only authenticated users who match that id or admin users can get the user - WORKS
+router.get('/:id', isAuthenticated, selfOrAdmin, (req, res, next) => {
   User.findOne({
     attributes: {
       exclude: ['password', 'salt']
@@ -45,8 +28,8 @@ router.get('/:id', (req, res, next) => {
     .catch(next)
 })
 
-// OATH make sure that these orders are only for the user who requested it
-router.get('/:id/orders', (req, res, next) => {
+// only user or admin can see an individual's orders - WORKS
+router.get('/:id/orders', isAuthenticated, selfOrAdmin, (req, res, next) => {
   User.findOne({
     where: {
       id: req.params.id
@@ -62,6 +45,7 @@ router.get('/:id/orders', (req, res, next) => {
     .catch(next)
 })
 
+// anyone can look at reviews - WORKS
 router.get('/:id/reviews', (req, res, next) => {
   User.findById(req.params.id)
     .then(user => {
@@ -72,55 +56,87 @@ router.get('/:id/reviews', (req, res, next) => {
     .catch(next)
 })
 
+// anyone can create a user - WORKS via curl
 router.post('/', (req, res, next) => {
   User.create(req.body)
     .then(user => res.json(user))
     .catch(next)
 })
 
-router.delete('/:id', (req, res, next) => {
+// only self or admin can delete an individual user - isAuthenticated Works via curl
+router.delete('/:id', isAuthenticated, selfOrAdmin, (req, res, next) => {
   const id = req.params.id
   User.destroy({ where: {id} })
     .then(() => res.sendStatus(204))
     .catch(next)
 })
 
-router.put('/:id', (req, res, next) => {
+// only self or admin can get info about an individual user - isAuthenticated Works via curl
+router.put('/:id', isAuthenticated, selfOrAdmin, (req, res, next) => {
   User.findById(req.params.id)
     .then(user => user.update(req.body))
     .then(updatedUser => res.json(updatedUser))
     .catch(next)
 })
 
-router.post('/:id/orders', (req, res, next) => {
+// only self can create an order - isAuthenticated Works via curl
+router.post('/:id/orders', isAuthenticated, self, (req, res, next) => {
   User.findById(req.params.id)
     .then(user => {
       Order.create(req.body)
-        .then(order => user.addOrder(order)) // double check - changed from user.setOrders()
+        .then(order => user.addOrder(order))
         .then(newOrder => res.json(newOrder))
     })
     .catch(next)
 })
 
-router.post('/:id/reviews', (req, res, next) => {
+// only self or admin can get an individual user's order - WORKS
+router.get('/:id/orders/:orderId', isAuthenticated, selfOrAdmin, (req, res, next) => {
+  User.findById(req.params.id)
+    .then(user => {
+      return user.getOrders({
+        where: {
+          id: req.params.orderId
+        }
+      })
+    })
+    .then(order => res.json(order))
+    .catch(next)
+})
+
+// only self can write a review - isAuthenticated Works via curl
+router.post('/:id/reviews', isAuthenticated, self, (req, res, next) => {
   User.findById(req.params.id)
     .then(user => {
       Review.create(req.body)
-        .then(review => user.addReview(review)) // double check - changed from user.setReviews()
+        .then(review => user.addReview(review))
         .then(newReview => res.json(newReview))
     })
     .catch(next)
 })
 
-// check OAuth to see if user can actually edit review
-router.put('/:id/reviews/:reviewId', (req, res, next) => {
-  Review.findById(req.params.reviewId)
+// only self or admin can edit a review - isAuthenticated Works via curl
+router.put('/:id/reviews/:reviewId', isAuthenticated, selfOrAdmin, (req, res, next) => {
+  User.findById(req.params.id)
+    .then(user => {
+      return user.getReviews({
+        where: {
+          id: req.params.reviewId
+        }
+      })
+    })
     .then(review => review.update(req.body))
     .then(updatedReview => res.json(updatedReview))
     .catch(next)
+
+  // Review.findById(req.params.reviewId)
+  //   .then(review => review.update(req.body))
+  //   .then(updatedReview => res.json(updatedReview))
+  //   .catch(next)
 })
 
-router.delete('/:id/reviews/:reviewId', (req, res, next) => {
+// only self or admin can delete an review - isAuthenticated Works via curl
+router.delete('/:id/reviews/:reviewId', isAuthenticated, selfOrAdmin, (req, res, next) => {
   const reviewId = req.params.reviewId
   Review.destroy({ where: {id: reviewId} })
     .then(() => res.sendStatus(204))

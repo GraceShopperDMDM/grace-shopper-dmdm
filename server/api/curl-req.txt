@@ -1,8 +1,8 @@
 ## USER
   ## POST
 
-    curl -H "Content-Type: application/json" -X POST -d '{"username":"Tom", "email": "tom@tom.com", "address": "133 st., NY, 34900", "password":"1234", "admin": "true"}' http://localhost:8080/api/users
-    curl -H "Content-Type: application/json" -X POST -d '{"username":"John", "email": "john@john.com", "address": "134 st., NY, 34901", "password":"1234", "admin": "true"}' http://localhost:8080/api/users
+    curl -H "Content-Type: application/json" -X POST -d '{"username":"Tom", "email": "tom@tom.com", "address": "133 st., NY, 34900", "password":"1234", "isAdmin": "true"}' http://localhost:8080/api/users
+    curl -H "Content-Type: application/json" -X POST -d '{"username":"John", "email": "john@john.com", "address": "134 st., NY, 34901", "password":"1234", "isAdmin": "false"}' http://localhost:8080/api/users
 
   ## PUT
     curl -H "Content-Type: application/json" -X PUT -d '{"username":"Tim", "email": "tim@tim.com", "address": "180 st., NJ, 34900", "password":"1234", "admin": "true"}' http://localhost:8080/api/users/3

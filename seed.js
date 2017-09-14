@@ -5,12 +5,12 @@ const users = [{
   username: 'Cody',
   email: 'cody@cody.com',
   address: '111 some st., NY, 11000',
-  admin: 'false'
+  isAdmin: 'false'
 }, {
   username: 'Garry',
   email: 'garry@garry.com',
   address: '122 some ave., NY, 11300',
-  admin: 'true'
+  isAdmin: 'true'
 }]
 
 const chocolates = [{

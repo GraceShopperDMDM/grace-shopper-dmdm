@@ -1,7 +1,9 @@
 const router = require('express').Router()
 const { Chocolate } = require('../db/models')
+const { isAdmin, isAuthenticated } = require('../utils/gatekeepers')
 module.exports = router
 
+// anyone can get info about products - WORKS
 router.get('/', (req, res, next) => {
   Chocolate.findAll({
   })
@@ -9,6 +11,7 @@ router.get('/', (req, res, next) => {
     .catch(next)
 })
 
+// anyone can get info about individual product - WORKS
 router.get('/:id', (req, res, next) => {
   Chocolate.findOne({
     where: {
@@ -19,6 +22,7 @@ router.get('/:id', (req, res, next) => {
     .catch(next)
 })
 
+// anyone can get filter products by category - WORKS
 router.get('/type/:type', (req, res, next) => { // use the category model -- /category/:categoryId
   Chocolate.findAll({
     where: {
@@ -29,6 +33,7 @@ router.get('/type/:type', (req, res, next) => { // use the category model -- /ca
     .catch(next)
 })
 
+// anyone can get reviews of an individual product - WORKS
 router.get('/:id/reviews', (req, res, next) => {
   Chocolate.findOne({
     where: {
@@ -43,20 +48,23 @@ router.get('/:id/reviews', (req, res, next) => {
     .catch(next)
 })
 
-router.post('/', (req, res, next) => {
+// only admin can create a product - isAuthenticated works via curl
+router.post('/', isAuthenticated, isAdmin, (req, res, next) => {
   Chocolate.create(req.body)
     .then(product => res.json(product))
     .catch(next)
 })
 
-router.delete('/:id', (req, res, next) => {
+// only admin can delete a product - isAuthenticated works via curl
+router.delete('/:id', isAuthenticated, isAdmin, (req, res, next) => {
   const id = req.params.id
   Chocolate.destroy({ where: {id} })
     .then(() => res.sendStatus(204))
     .catch(next)
 })
 
-router.put('/:id', (req, res, next) => {
+// only admin can edit a product - isAuthenticated works via curl
+router.put('/:id', isAuthenticated, isAdmin, (req, res, next) => {
   Chocolate.findById(req.params.id)
     .then(product => product.update(req.body))
     .then(updatedProduct => res.json(updatedProduct))
