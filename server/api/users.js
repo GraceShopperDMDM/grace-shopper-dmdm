@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { User, Order, Review, Chocolate } = require('../db/models')
+const { User, Order, Review, Chocolate, ChocolateOrder } = require('../db/models')
 module.exports = router
 
 // const isAuthenticated = (req, res, next) => {
@@ -93,16 +93,26 @@ router.put('/:id', (req, res, next) => {
 })
 
 router.post('/:id/orders', (req, res, next) => {
+  console.log('body===>', req.body)
   User.findById(req.params.id)
-    .then(user => {
-      Order.create(req.body) // req.body.chocolates =[{id, quantity, price}]
-        .then(order => user.addOrder(order)) // double check - changed from user.setOrders()
+    .then(user =>
+      Order.create(req.body) // req.body.chocolates =[{chocolateId, quantity, purchasedPrice}]
+        .then(order => {
+          let orderId = order.id
+          return user.addOrder(order)
+            .then(() =>
+              Promise.all(req.body.chocolates.map(chocolate => {
+                chocolate.orderId = orderId
+                return ChocolateOrder.create(chocolate)
+              }))
+            )
+        }) // double check - changed from user.setOrders()
         .then(newOrder => res.json(newOrder))
-    })
+    )
     .then(() =>
       Promise.all(req.body.chocolates.map(chocolate => {
         let quantity = chocolate.quantity
-        return Chocolate.findById(chocolate.id)
+        return Chocolate.findById(chocolate.chocolateId)
           .then(foundChocolate => {
             // console.log(foundChocolate, quantity)
             return foundChocolate.editStock(-quantity)

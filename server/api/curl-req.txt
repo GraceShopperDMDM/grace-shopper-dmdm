@@ -35,6 +35,23 @@
       "status": "received",
       "userId": "1"
     }' http://localhost:8080/api/users/1/orders
+
+    curl -H "Content-Type: application/json" -X POST -d '{
+      "shipdate":"2017-11-12 15:49:46-04",
+      "deliverydate":"2017-12-12 15:49:46-04",
+      "status": "received",
+      "userId": "1",
+      "chocolates": [{
+        "chocolateId": 1,
+        "quantity": 2,
+        "purchasedPrice": 10.5
+      }, {
+        "chocolateId": 2,
+        "quantity": 3,
+        "purchasedPrice": 10.25
+      }]
+    }' http://localhost:8080/api/users/1/orders
+
   ## PUT
     curl -H "Content-Type: application/json" -X PUT -d '{
       "shipdate":"2017-11-12 15:49:46-04",
