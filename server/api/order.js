@@ -3,7 +3,7 @@ const { Order, Chocolate } = require('../db/models')
 const { isAdmin, isAuthenticated } = require('../utils/gatekeepers')
 module.exports = router
 
-// only admin can get all orders
+// only admin can get all orders - WORKS
 router.get('/', isAuthenticated, isAdmin, (req, res, next) => {
   Order.findAll({
     include: [{model: Chocolate, as: 'chocolates'}]
@@ -12,7 +12,7 @@ router.get('/', isAuthenticated, isAdmin, (req, res, next) => {
     .catch(next)
 })
 
-// only admin can edit an individual user's order (user must contact admin)
+// only admin can edit an individual user's order (user must contact admin) - isAuthenticated works via curl
 router.put('/:id', isAuthenticated, isAdmin, (req, res, next) => {
   Order.findById(req.params.id)
     .then(order => order.update(req.body))
@@ -20,7 +20,7 @@ router.put('/:id', isAuthenticated, isAdmin, (req, res, next) => {
     .catch(next)
 })
 
-// only admin can delete an individual user's order (user must contact admin)
+// only admin can delete an individual user's order (user must contact admin) - isAuthenticated works via curl
 router.delete('/:id', isAuthenticated, isAdmin, (req, res, next) => {
   const id = req.params.id
   Order.destroy({ where: {id} })

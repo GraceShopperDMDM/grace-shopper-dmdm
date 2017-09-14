@@ -10,9 +10,7 @@ const isAuthenticated = (req, res, next) => {
 
 const isAdmin = (req, res, next) => {
   if (!req.user.isAdmin) {
-    const error = new Error('You are not an administrator')
-    error.status = 401
-    return next(error)
+    res.status(403).end()
   } else {
     next()
   }
