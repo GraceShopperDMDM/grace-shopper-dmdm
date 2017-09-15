@@ -28,7 +28,7 @@ const User = db.define('user', {
   googleId: {
     type: Sequelize.STRING
   },
-  admin: { // call isAdmin
+  isAdmin: { // call isAdmin
     type: Sequelize.BOOLEAN,
     allowNull: false
   }

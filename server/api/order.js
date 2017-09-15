@@ -1,8 +1,10 @@
 const router = require('express').Router()
 const { Order, Chocolate } = require('../db/models')
+const { isAdmin, isAuthenticated } = require('../utils/gatekeepers')
 module.exports = router
 
-router.get('/', (req, res, next) => {
+// only admin can get all orders - WORKS
+router.get('/', isAuthenticated, isAdmin, (req, res, next) => {
   Order.findAll({
     include: [{model: Chocolate, as: 'chocolates'}]
   })
@@ -10,22 +12,16 @@ router.get('/', (req, res, next) => {
     .catch(next)
 })
 
-router.get('/:id', (req, res, next) => {
-  Order.findById(req.params.id, {
-    include: [{model: Chocolate, as: 'chocolates'}]
-  })
-    .then(order => res.json(order))
-    .catch(next)
-})
-
-router.put('/:id', (req, res, next) => {
+// only admin can edit an individual user's order (user must contact admin) - isAuthenticated works via curl
+router.put('/:id', isAuthenticated, isAdmin, (req, res, next) => {
   Order.findById(req.params.id)
     .then(order => order.update(req.body))
     .then(updatedOrder => res.json(updatedOrder))
     .catch(next)
 })
 
-router.delete('/:id', (req, res, next) => {
+// only admin can delete an individual user's order (user must contact admin) - isAuthenticated works via curl
+router.delete('/:id', isAuthenticated, isAdmin, (req, res, next) => {
   const id = req.params.id
   Order.destroy({ where: {id} })
     .then(() => res.sendStatus(204))
