@@ -1,5 +1,6 @@
 const router = require('express').Router()
-const { User, Order, Review, Chocolate } = require('../db/models')
+const { User, Order, Review, Chocolate, ChocolateOrder } = require('../db/models')
+// const { User, Order, Review, Chocolate } = require('../db/models')
 const { isAdmin, isAuthenticated, selfOrAdmin, self } = require('../utils/gatekeepers')
 module.exports = router
 
@@ -78,15 +79,34 @@ router.put('/:id', isAuthenticated, selfOrAdmin, (req, res, next) => {
     .then(updatedUser => res.json(updatedUser))
     .catch(next)
 })
-
-// only self can create an order - isAuthenticated Works via curl
+// isAuthenticated, self,
 router.post('/:id/orders', isAuthenticated, self, (req, res, next) => {
+  console.log('body===>', req.body)
   User.findById(req.params.id)
-    .then(user => {
-      Order.create(req.body)
-        .then(order => user.addOrder(order))
-        .then(newOrder => res.json(newOrder))
-    })
+    .then(user =>
+      Order.create(req.body) // req.body.chocolates =[{chocolateId, quantity, purchasedPrice}]
+        .then(order => {
+          let orderId = order.id
+          return user.addOrder(order)
+            .then(() =>
+              Promise.all(req.body.chocolates.map(chocolate => {
+                chocolate.orderId = orderId
+                return ChocolateOrder.create(chocolate)
+              }))
+            )
+            .then(newOrder => res.json(newOrder))
+        }))
+    .then(() =>
+      Promise.all(req.body.chocolates.map(chocolate => {
+        let quantity = chocolate.quantity
+        return Chocolate.findById(chocolate.chocolateId)
+          .then(foundChocolate => {
+            // console.log(foundChocolate, quantity)
+            return foundChocolate.editStock(-quantity)
+          }
+          )
+      }))
+    )
     .catch(next)
 })
 

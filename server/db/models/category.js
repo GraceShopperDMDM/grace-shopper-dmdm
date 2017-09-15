@@ -10,6 +10,4 @@ const Category = db.define('category', {
 
 // instance method for increasing/decrementing stock
 // getter method convert price to dollars from cents
-
-
 module.exports = Category
