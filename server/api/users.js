@@ -79,7 +79,7 @@ router.put('/:id', isAuthenticated, selfOrAdmin, (req, res, next) => {
     .then(updatedUser => res.json(updatedUser))
     .catch(next)
 })
-
+// isAuthenticated, self,
 router.post('/:id/orders', isAuthenticated, self, (req, res, next) => {
   console.log('body===>', req.body)
   User.findById(req.params.id)
