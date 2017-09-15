@@ -15,8 +15,8 @@ const Main = (props) => {
 
   return (
     <div>
-      <h1>BOILERMAKER</h1>
-      <nav>
+      <h1>COCO's Chocolate LoveShack</h1>
+      <nav className="navbar navbar-inverse bg-primary">
         {
           isLoggedIn
             ? <div>
@@ -28,6 +28,8 @@ const Main = (props) => {
               {/* The navbar will show these links before you log in */}
               <Link to='/login'>Login</Link>
               <Link to='/signup'>Sign Up</Link>
+              <input className=""/>
+              <button className="btn btn-primary">Search:</button>
             </div>
         }
       </nav>
