@@ -31,8 +31,9 @@ const Chocolate = db.define('chocolate', {
   }
 })
 
-Chocolate.prototype.editStock = (size) => {
+Chocolate.prototype.editStock = function (size) {
   this.stock += size
+  return this.save()
 }
 
 // instance method for increasing/decrementing stock
