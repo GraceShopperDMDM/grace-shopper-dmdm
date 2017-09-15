@@ -6,6 +6,7 @@ import history from '../history'
  */
 const GET_ALL_USERS = 'GET_ALL_USERS'
 const UPDATE_USER = 'UPDATE_USER'
+const GET_SELF = 'GET_SELF'
 
 /**
  * INITIAL STATE
@@ -17,6 +18,7 @@ const users = []
  */
 const getAllUsers = users => ({type: GET_ALL_USERS, users})
 const updateSingleUser = user => ({type: UPDATE_USER, user})
+const getOneself = user => ({type: GET_SELF, user})
 
 /**
  * THUNK CREATORS
@@ -38,6 +40,10 @@ export const updateUser = (updatedUser, id, history) =>
         history.push('/users')
       })
       .catch(err => console.log(err))
+
+export const getSelf = () =>
+  dispatch =>
+    axios.get(`/api/users/${id}`)
 
 /**
  * REDUCER
