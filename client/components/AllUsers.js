@@ -53,31 +53,6 @@ export const AllUsers = (props) => {
   }
 }
 
-//       <div classNameName="container">
-//         <h3>All Users</h3>
-//         <br />
-//         <br />
-//         <ul classNameName="user-list">
-//           {
-//             props.users.map(user => {
-//               return (
-//                 <li key={user.id}>
-//                   <Link to={`/users/${user.id}`}>{user.username}
-//                   </Link>
-//                 </li>
-//               )
-//             })
-//           }
-//         </ul>
-//       </div>
-//     )
-//   } else {
-//     return (
-//       <h3>Loading...</h3>
-//     )
-//   }
-// }
-
 /**
  * CONTAINER
  */

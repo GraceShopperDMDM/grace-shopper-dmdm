@@ -6,7 +6,7 @@ import {connect} from 'react-redux'
  * COMPONENT
  */
 export const UserHome = (props) => {
-  const {email} = props
+  const {user} = props
 
   return (
     <div className="container">
@@ -52,6 +52,7 @@ export const UserHome = (props) => {
           </ul>
         </div>
         <div className="col-sm-9">
+          {user.isAdmin &&
           <div className="row">
             <div className="col-lg-3">
               <div className="panel panel-info">
@@ -162,6 +163,7 @@ export const UserHome = (props) => {
               </div>
             </div>
           </div>
+          }
           <div className="card">
             <ul className="nav nav-tabs" role="tablist">
               <li role="presentation" className="active">
@@ -193,7 +195,7 @@ export const UserHome = (props) => {
                         <div className="panel-body">
                           <header className="text-left">
                             <div className="comment-user"><i className="fa fa-user"></i> That Guy</div>
-                            <time className="comment-date" datetime="16-12-2014 01:05"><i className="fa fa-clock-o"></i> Dec 16, 2014</time>
+                            <time className="comment-date" dateTime="16-12-2014 01:05"><i className="fa fa-clock-o"></i> Dec 16, 2014</time>
                           </header>
                           <div className="comment-post">
                             <p>
@@ -224,7 +226,7 @@ export const UserHome = (props) => {
  */
 const mapState = (state) => {
   return {
-    email: state.user.email
+    user: state.user
   }
 }
 
