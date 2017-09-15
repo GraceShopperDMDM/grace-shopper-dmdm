@@ -6,9 +6,9 @@ export const SingleProduct = (props) => {
   const product = props.product[0] || {name: ''}
   console.log('product', product)
   return (
-    <div>
-      <h3>{product.name}</h3>
-      <img src={product.photo} />
+    <div className="container col-xs-3">
+      <label>{product.name}</label>
+      <img className="rounded img-fluid" src={product.photo} />
     </div>
   )
 }
