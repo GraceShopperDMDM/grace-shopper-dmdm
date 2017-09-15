@@ -18,15 +18,13 @@ const chocolates = [{
   category: 'ice cream',
   description: 'very delicious!',
   price: 10.25,
-  stock: 15,
-  photo: 'daskdsad'
+  stock: 15
 }, {
   name: 'dark chocolate fudge',
   category: 'fudge',
   description: 'very good!',
   price: 12.50,
-  stock: 20,
-  photo: 'kkkldsadklasj'
+  stock: 20
 }]
 
 const orders = [{

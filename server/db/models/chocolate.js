@@ -27,7 +27,7 @@ const Chocolate = db.define('chocolate', {
   },
   photo: {
     type: Sequelize.STRING,
-    defaultValue: 'https://www.google.com/search?q=kilwins+chocolate&source=lnms&tbm=isch&sa=X&ved=0ahUKEwi9sITYw6LWAhWq5IMKHcOjB3UQ_AUIDCgD&biw=1776&bih=845#imgrc=yGY-WoNoYQEVVM:'
+    defaultValue: 'https://www.kilwins.com/sites/default/files/imagecache/page-accent/product_image/category/Kilwin%27s%20Combo%20-%20Copy.jpg'
   }
 })
 
