@@ -1,9 +1,8 @@
-import React, {Component} from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import {fetchReviews} from '../store'
 
-export const AllProducts = (props) => {
+export const ProductCategory = (props) => {
   const products = props.products
   return (
     <div>
@@ -11,7 +10,7 @@ export const AllProducts = (props) => {
         products.map(product =>
           <Link to={`/products/${product.id}`} key={product.id}>
             {product.name}
-            <img src={product.photo} className="img img-responsive" />
+            <img src={product.photo} />
           </Link>
         )
       }
@@ -19,11 +18,13 @@ export const AllProducts = (props) => {
   )
 }
 
-const mapState = (state) => {
+const mapState = (state, ownProps) => {
   console.log('state', state)
   return {
-    products: state.product.products
+    products: state.product.products.filter(prod => {
+      return prod.category === ownProps.match.params.categoryName
+    })
   }
 }
 
-export default connect(mapState)(AllProducts)
+export default connect(mapState)(ProductCategory)

@@ -5,13 +5,13 @@ const users = [{
   username: 'Cody',
   email: 'cody@cody.com',
   address: '111 some st., NY, 11000',
-  password: '1234',
+  password: '123',
   isAdmin: 'false'
 }, {
   username: 'Garry',
   email: 'garry@garry.com',
   address: '122 some ave., NY, 11300',
-  password: '1234',
+  password: '123',
   isAdmin: 'true'
 }]
 
@@ -20,15 +20,13 @@ const chocolates = [{
   category: 'ice cream',
   description: 'very delicious!',
   price: 10.25,
-  stock: 15,
-  photo: 'daskdsad'
+  stock: 15
 }, {
   name: 'dark chocolate fudge',
   category: 'fudge',
   description: 'very good!',
   price: 12.50,
-  stock: 20,
-  photo: 'kkkldsadklasj'
+  stock: 20
 }]
 
 const orders = [{
