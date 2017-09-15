@@ -5,11 +5,13 @@ const users = [{
   username: 'Cody',
   email: 'cody@cody.com',
   address: '111 some st., NY, 11000',
+  password: '123',
   isAdmin: 'false'
 }, {
   username: 'Garry',
   email: 'garry@garry.com',
   address: '122 some ave., NY, 11300',
+  password: '123',
   isAdmin: 'true'
 }]
 
