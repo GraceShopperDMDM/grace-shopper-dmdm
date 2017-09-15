@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
 export const AllUsers = (props) => {
+  console.log('ALL USERS PROPS', props)
   if (props.users) {
     return (
       <div className="container">
@@ -13,7 +14,7 @@ export const AllUsers = (props) => {
             </div>
             <div className="panel-body">
               <div className="table-container">
-                <table className="table-users table" border="0">
+                <table className="table-users table">
                   <tbody>
                     {
                       props.users.map(user => {
