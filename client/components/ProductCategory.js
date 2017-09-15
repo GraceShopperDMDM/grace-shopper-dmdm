@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 export const ProductCategory = (props) => {
-const products = props.products
+  const products = props.products
   return (
     <div>
       {

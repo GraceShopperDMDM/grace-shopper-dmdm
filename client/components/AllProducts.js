@@ -1,6 +1,7 @@
-import React from 'react'
+import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import {fetchReviews} from '../store'
 
 export const AllProducts = (props) => {
   const products = props.products
@@ -10,7 +11,7 @@ export const AllProducts = (props) => {
         products.map(product =>
           <Link to={`/products/${product.id}`} key={product.id}>
             {product.name}
-            <img src={product.photo} />
+            <img src={product.photo} className="img img-responsive" />
           </Link>
         )
       }

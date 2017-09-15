@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import store, {fetchReviews} from '../store'
 
 export const SingleProduct = (props) => {
   const product = props.product[0] || {name: ''}
@@ -14,9 +15,11 @@ export const SingleProduct = (props) => {
 }
 
 const mapState = (state, ownProps) => {
-  console.log('state', state)
+  
   return {
-    product: state.product.products.filter(product => product.id === +ownProps.match.params.id)
+    product: state.product.products.filter(product => product.id === +ownProps.match.params.id),
+    reviews: state.reviews,
+    productId: +ownProps.match.params.id
   }
 }
 
