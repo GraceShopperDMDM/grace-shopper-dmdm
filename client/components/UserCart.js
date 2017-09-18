@@ -8,14 +8,15 @@ class UserCart extends Component {
   //   super(props)
   // }
 
-  ComponentWillMount () {
-    console.log('mounted')
-    this.props.fetchCart()
+  componentDidMount () {
+    this.props.loadCart()
   }
 
   render () {
     console.log('we are here!')
     const products = this.props.products
+    const cartItems = this.props.cart || []
+    console.log(cartItems)
 
     return (
       <div>
@@ -26,7 +27,7 @@ class UserCart extends Component {
               <th>Remove</th>
               <th>Products</th>
               <th></th>
-              <th>Qunatity</th>
+              <th>Quantity</th>
               <th>Total</th>
             </tr>
             {
@@ -62,7 +63,8 @@ class UserCart extends Component {
 const mapState = (state) => {
   console.log('state', state)
   return {
-    products: state.product.products
+    products: state.product.products,
+    cart: state.cart
   }
 }
 
