@@ -3,14 +3,13 @@ import {connect} from 'react-redux'
 import {updateUser} from '../store'
 
 export const EditSingleUser = (props) => {
-  let user
-  const {users} = props
-  const loggedInUser = props.user
+  let {user, users} = props
+  // console.log(loggedInUser)
   if (props.users) {
-    if (loggedInUser.isAdmin) {
+    if (props.match.params.id && user.isAdmin) { // user is admin and has id
       user = users.find(user => +user.id === +props.match.params.id)
-    } else {
-      +props.match.params.id === +loggedInUser.id ? user = loggedInUser : user = null
+    } else if (props.match.params.id && !user.isAdmin) { // user is not admin and has id
+      user = +props.match.params.id === +user.id ? user : null
     }
     if (user) {
       return (
@@ -26,15 +25,10 @@ export const EditSingleUser = (props) => {
                   <label>Password</label><input type='text' name="password" className='form-control' placeholder='Enter new password'/>
                   <label>Administrator</label>
                   {
-                    user.isAdmin ? (
+                    user.isAdmin && ( // this is not safe at all
                       <select name="select">
                         <option defaultValue="True">True</option>
                         <option value="False">False</option>
-                      </select>
-                    ) : (
-                      <select name="select">
-                        <option value="True">True</option>
-                        <option defaultValue="False">False</option>
                       </select>
                     )
                   }

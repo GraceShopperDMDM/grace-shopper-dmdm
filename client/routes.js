@@ -14,7 +14,8 @@ import {
   AllProducts,
   SingleProduct,
   ProductCategory,
-  UserCart
+  UserCart,
+  Navbar
 } from './components'
 import {me, fetchUsers, fetchProducts} from './store'
 
