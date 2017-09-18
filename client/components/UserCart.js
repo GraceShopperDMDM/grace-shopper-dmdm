@@ -1,55 +1,90 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { fetchCart } from '../store'
 
-export const UserCart = (props) => {
-  const products = props.products
-  return (
-    <div>
-      <h3>My Cart</h3>
-      <table>
-        <tbody>
-          <tr>
-            <th>Remove</th>
-            <th>Products</th>
-            <th></th>
-            <th>Qunatity</th>
-            <th>Total</th>
-          </tr>
-          {
-            products.map(product =>
-              <tr key={product.id}>
-                <td>
-                  <button>Remove</button>
-                </td>
-                <td>
-                  <img src={product.photo} />
-                </td>
-                <td>
-                  <Link to={`/products/${product.id}`} key={product.id}>
-                    {product.name}
-                  </Link>
-                </td>
-                <td>
-                  <input />
-                </td>
-                <td>
-                  {product.price}
-                </td>
-              </tr>
-            )
-          }
-        </tbody>
-      </table>
-    </div>
-  )
+class UserCart extends Component {
+  // constructor (props) {
+  //   super(props)
+  // }
+
+  componentDidMount () {
+    this.props.loadCart()
+  }
+
+  render () {
+    const products = this.props.products
+    const cartItems = this.props.cart || []
+
+    for (let i = 0; i < cartItems.length; i++) {
+      cartItems[i].chocolate = products.find(product => {
+        console.log(cartItems[i].chocolateId)
+        console.log(product.id)
+        return +product.id === +cartItems[i].chocolateId
+      })
+    }
+    console.log(cartItems)
+
+    return (
+      <div>
+        <h3>My Cart</h3>
+        <table>
+          <tbody>
+            <tr>
+              <th>Remove</th>
+              <th>Products</th>
+              <th></th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Total</th>
+            </tr>
+            {
+              cartItems.map(cartItem =>
+                <tr key={cartItem.chocolate.id}>
+                  <td>
+                    <button>Remove</button>
+                  </td>
+                  <td>
+                    <img src={cartItem.chocolate.photo} />
+                  </td>
+                  <td>
+                    <Link to={`/cartItem.chocolates/${cartItem.chocolate.id}`} key={cartItem.chocolate.id}>
+                      {cartItem.chocolate.name}
+                    </Link>
+                  </td>
+                  <td>
+                    {cartItem.quantity}
+                  </td>
+                  <td>
+                    {cartItem.chocolate.price}
+                  </td>
+                  <td>
+                    {cartItem.chocolate.price * cartItem.quantity}
+                  </td>
+                </tr>
+              )
+            }
+          </tbody>
+        </table>
+      </div>
+    )
+  }
 }
 
 const mapState = (state) => {
   console.log('state', state)
   return {
-    products: state.product.products
+    products: state.product.products,
+    cart: state.cart
   }
 }
 
-export default connect(mapState)(UserCart)
+const mapDispatch = (dispatch, ownProps) => {
+  return {
+    loadCart () {
+      dispatch(fetchCart(ownProps.match.params.id))
+    }
+  }
+}
+
+export default connect(mapState, mapDispatch)(UserCart)

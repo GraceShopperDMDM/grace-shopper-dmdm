@@ -76,3 +76,8 @@
     }' http://localhost:8080/api/users/1/reviews/1
   ## DELETE
     curl -H "Content-Type: application/json" -X DELETE -d '{}' http://localhost:8080/api/users/1/reviews/1
+
+curl -H "Content-Type: application/json" -X PUT -d '{
+      "chocolateId": "1",
+      "quantity": "13"
+    }' http://localhost:8080/api/users/1/cart
