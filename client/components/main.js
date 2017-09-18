@@ -13,7 +13,7 @@ import Navbar from './Navbar'
  */
 const Main = (props) => {
   const {children} = props
-
+  console.log('===>', props)
   return (
     <div>
       <h1>COCO's Chocolate LoveShack</h1>
@@ -48,7 +48,8 @@ const Main = (props) => {
  */
 const mapState = (state) => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    user: state.user
   }
 }
 

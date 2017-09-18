@@ -15,7 +15,7 @@ import {
   SingleProduct,
   ProductCategory,
   UserCart,
-  Navbar
+  UserReviews
 } from './components'
 import {me, fetchUsers, fetchProducts} from './store'
 
@@ -32,7 +32,7 @@ class Routes extends Component {
 
     return (
       <Router history={history}>
-        <Main>
+        <Main >
           <Switch>
             {/* Routes placed here are available to all visitors */}
             <Route path='/login' component={Login} />
@@ -41,8 +41,9 @@ class Routes extends Component {
             <Route path='/products/:id' component={SingleProduct} />
             <Route path='/category/:categoryName' component={ProductCategory} />
             <Route path='/users/:id/cart' component={UserCart} />
-            <Route path='/users/:id' component={EditSingleUser} />
+            <Route exact path='/users/:id' component={EditSingleUser} />
             <Route exact path='/users' component={AllUsers} />
+            <Route exact path='/users/:id/reviews' component={UserReviews} />
             {
               isLoggedIn &&
                 <Switch>
@@ -66,7 +67,8 @@ const mapState = (state) => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    user: state.user
   }
 }
 

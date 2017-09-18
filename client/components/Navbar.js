@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 
 export default function Navbar (props) {
-  const {handleClick, isLoggedIn} = props
+  const {handleClick, isLoggedIn, user} = props
   return (
     <nav className="navbar navbar-default" role="navigation">
 
@@ -45,7 +45,8 @@ export default function Navbar (props) {
                 <ul className="dropdown-menu">
                   <li><Link to="/myhome">Home</Link></li>
                   <li><Link to="#">Cart</Link></li>
-                  <li><Link to="#">Orders</Link></li>
+                  <li><Link to="#">My Orders</Link></li>
+                  <li><Link to={`/users/${user.id}/reviews`}>My Reviews</Link></li>
                   <li className="divider"></li>
                   <li><Link onClick={handleClick} to="/logout">Logout</Link></li>
                 </ul>
