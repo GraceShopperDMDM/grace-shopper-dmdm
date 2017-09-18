@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import SingleUser from './SingleUser'
 import EditSingleUser from './EditSingleUser'
+import UserReviews from './UserReviews'
 
 /**
  * COMPONENT
@@ -144,7 +145,7 @@ export const UserHome = (props) => {
             </ul>
             <div className="tab-content">
               <div role="tabpanel" className="tab-pane active" id="profile"><SingleUser {...props} /></div>
-              <div role="tabpanel" className="tab-pane" id="reviews">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</div>
+              <div role="tabpanel" className="tab-pane" id="reviews"><UserReviews {...props}/></div>
               <div role="tabpanel" className="tab-pane" id="settings"><EditSingleUser {...props} /></div>
             </div>
           </div>
