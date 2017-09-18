@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { User, Order, Review, Chocolate, ChocolateOrder } = require('../db/models')
+const { User, Order, Review, Chocolate, ChocolateOrder, Cart } = require('../db/models')
 // const { User, Order, Review, Chocolate } = require('../db/models')
 const { isAdmin, isAuthenticated, selfOrAdmin, self } = require('../utils/gatekeepers')
 module.exports = router
@@ -41,6 +41,25 @@ router.get('/:id/orders', isAuthenticated, selfOrAdmin, (req, res, next) => {
         include: [ Chocolate ]
       })
         .then(orders => res.json(orders))
+        .catch(console.error)
+    })
+    .catch(next)
+})
+
+router.get('/:id/cart', isAuthenticated, selfOrAdmin, (req, res, next) => {
+  User.findOne({
+    where: {
+      id: req.params.id
+    }
+  })
+    .then(user => {
+      Cart.findAll({
+        where: {
+          userId: user.id
+        }
+      }
+      )
+        .then(carts => res.json(carts))
         .catch(console.error)
     })
     .catch(next)
@@ -108,6 +127,19 @@ router.post('/:id/orders', isAuthenticated, self, (req, res, next) => {
       }))
     )
     .catch(next)
+})
+
+router.get('/:id/cart', (req, res, next) => {
+  Cart.findAll({where: {userId: req.params.id}})
+    .then(cart => res.json(cart))
+})
+
+router.put('/:id/cart', (req, res, next) => {
+  Cart.findOrCreate({where: {userId: req.params.id, chocolateId: req.body.chocolateId}, defaults: {quantity: req.body.quantity}})
+    .then(cart => {
+      cart[0].update(req.body)
+        .then(updatedCart => res.json(updatedCart))
+    })
 })
 
 // only self or admin can get an individual user's order - WORKS
