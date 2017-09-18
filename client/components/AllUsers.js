@@ -1,10 +1,15 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import {fetchUsers} from '../store'
 
-export const AllUsers = (props) => {
-  if (props.users.length) {
-    if (props.user.isAdmin) {
+class AllUsers extends React.Component {
+  componentDidMount () {
+    this.props.getAllUsers()
+  }
+  render () {
+    let {users, user} = this.props
+    if (users.length && user.isAdmin) {
       return (
         <div className="container">
           <div className="row">
@@ -17,7 +22,7 @@ export const AllUsers = (props) => {
                   <table className="table-users table">
                     <tbody>
                       {
-                        props.users.map(user => {
+                        users.map(user => {
                           return (
                             <Link key={user.id} to={`/users/${user.id}`}>
                               <tr>
@@ -47,25 +52,24 @@ export const AllUsers = (props) => {
           </div>
         </div>
       )
-    } else {
+    } else if (!user.isAdmin && !users.length) {
       return (
         <h3>Restricted Access</h3>
       )
-    }
-  } else {
-    console.log('PROPSUSER', props.user)
-    if (!Object.keys(props.user).length) {
-      return (
-        <h3>Please log in or sign up</h3>
-      )
-    } else {
-      return (
-        <h3>Loading...</h3>
-      )
+    } else if (!users.length) {
+    // console.log('PROPSUSER', props.user)
+      if (!Object.keys(user).length) {
+        return (
+          <h3>Please log in or sign up</h3>
+        )
+      } else {
+        return (
+          <h3>Loading...</h3>
+        )
+      }
     }
   }
 }
-
 /**
  * CONTAINER
  */
@@ -77,4 +81,12 @@ const mapState = (state) => {
   }
 }
 
-export default connect(mapState)(AllUsers)
+const mapDispatch = (dispatch) => {
+  return {
+    getAllUsers: () => {
+      dispatch(fetchUsers())
+    }
+  }
+}
+
+export default connect(mapState, mapDispatch)(AllUsers)

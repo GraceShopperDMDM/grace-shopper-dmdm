@@ -34,7 +34,7 @@ export const auth = (email, password, method, username, address) =>
       .then(res => {
         console.log('new user--->', res.data)
         dispatch(getUser(res.data))
-        history.push('/home')
+        history.push('/myhome')
       })
       .catch(error =>
         dispatch(getUser({error})))
