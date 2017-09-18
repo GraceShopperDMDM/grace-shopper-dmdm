@@ -2,32 +2,71 @@ import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
+// import {SignUp} from './SignUp'
+// import {LogIn} from './LogIn'
 
 /**
  * COMPONENT
  */
 const AuthForm = (props) => {
   const {name, displayName, handleSubmit, error} = props
-
-  return (
-    <div>
-      <form onSubmit={handleSubmit} name={name}>
-        <div>
-          <label htmlFor='email'><small>Email</small></label>
-          <input className="form-control input-underline input-lg" name='email' type='text' />
-        </div>
-        <div>
-          <label htmlFor='password'><small>Password</small></label>
-          <input className="form-control input-underline input-lg" name='password' type='password' />
-        </div>
-        <div>
-          <button type='submit' className="btn btn-white btn-outline btn-lg btn-rounded">{displayName}</button>
-        </div>
-        {error && error.response && <div> {error.response.data} </div>}
-      </form>
-      <a href='/auth/google'>{displayName} with Google</a>
-    </div>
-  )
+  if (name === 'signup') {
+    return (
+      <div>
+        <form onSubmit={handleSubmit} name={name}>
+          <div>
+            <label htmlFor='username'><small>UserName</small></label>
+            <input className="form-control input-underline input-lg" name='username' type='text' />
+          </div>
+          <div>
+            <label htmlFor='email'><small>Email</small></label>
+            <input className="form-control input-underline input-lg" name='email' type='text' />
+          </div>
+          <div>
+            <label htmlFor='address'><small>Address</small></label>
+            <input className="form-control input-underline input-lg" name='address' type='text' />
+          </div>
+          <div>
+            <label htmlFor='password'><small>Password</small></label>
+            <input className="form-control input-underline input-lg" name='password' type='password' />
+          </div>
+          <div>
+            <button type='submit' className="btn btn-white btn-outline btn-lg btn-rounded">{displayName}</button>
+          </div>
+          {error && error.response && <div> {error.response.data} </div>}
+        </form>
+        <a href='/auth/google'>{displayName} with Google</a>
+      </div>
+    )
+  } else {
+    return (
+      <div>
+        <form onSubmit={handleSubmit} name={name}>
+          {/* <div>
+            <label htmlFor='username'><small>UserName</small></label>
+            <input className="form-control input-underline input-lg" name='username' type='text' />
+          </div> */}
+          <div>
+            <label htmlFor='email'><small>Email</small></label>
+            <input className="form-control input-underline input-lg" name='email' type='text' />
+          </div>
+          {/* <div>
+            <label htmlFor='address'><small>Address</small></label>
+            <input className="form-control input-underline input-lg" name='address' type='text' />
+          </div> */}
+          <div>
+            <label htmlFor='password'><small>Password</small></label>
+            <input className="form-control input-underline input-lg" name='password' type='password' />
+          </div>
+          <div>
+            <button type='submit' className="btn btn-white btn-outline btn-lg btn-rounded">{displayName}</button>
+          </div>
+          {error && error.response && <div> {error.response.data} </div>}
+        </form>
+        <a href='/auth/google'>{displayName} with Google</a>
+      </div>
+    )
+  }
 }
 
 /**
@@ -55,12 +94,26 @@ const mapSignup = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
+    // handleLoginSubmit (evt) {
+    //   evt.preventDefault()
+    //   // const formName = evt.target.name
+    //   const email = evt.target.email.value
+    //   const password = evt.target.password.value
+    //   dispatch(auth(email, password))
+    // },
     handleSubmit (evt) {
       evt.preventDefault()
       const formName = evt.target.name
       const email = evt.target.email.value
       const password = evt.target.password.value
-      dispatch(auth(email, password, formName))
+      if (formName === 'signup') {
+        const username = evt.target.username.value
+        const address = evt.target.address.value
+        console.log('user-->', email, password, formName, username, address)
+        dispatch(auth(email, password, formName, username, address))
+      } else if (formName === 'login') {
+        dispatch(auth(email, password, formName))
+      }
     }
   }
 }

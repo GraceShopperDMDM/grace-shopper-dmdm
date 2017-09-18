@@ -17,11 +17,12 @@ const Main = (props) => {
     <div>
       <h1>COCO's Chocolate LoveShack</h1>
       <nav className="navbar navbar-inverse bg-primary">
+        <Link to='/products'>Products</Link>
         {
           isLoggedIn
             ? <div>
               {/* The navbar will show these links after you log in */}
-              <Link to='/home'>Home</Link>
+              <Link to='/myhome'>Home</Link>
               <a href='#' onClick={handleClick}>Logout</a>
             </div>
             : <div>
@@ -32,6 +33,7 @@ const Main = (props) => {
               <button className="btn btn-primary">Search:</button>
             </div>
         }
+
       </nav>
       <hr />
       {children}
