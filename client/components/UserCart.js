@@ -13,9 +13,16 @@ class UserCart extends Component {
   }
 
   render () {
-    console.log('we are here!')
     const products = this.props.products
     const cartItems = this.props.cart || []
+
+    for (let i = 0; i < cartItems.length; i++) {
+      cartItems[i].chocolate = products.find(product => {
+        console.log(cartItems[i].chocolateId)
+        console.log(product.id)
+        return +product.id === +cartItems[i].chocolateId
+      })
+    }
     console.log(cartItems)
 
     return (
@@ -28,27 +35,31 @@ class UserCart extends Component {
               <th>Products</th>
               <th></th>
               <th>Quantity</th>
+              <th>Price</th>
               <th>Total</th>
             </tr>
             {
-              products.map(product =>
-                <tr key={product.id}>
+              cartItems.map(cartItem =>
+                <tr key={cartItem.chocolate.id}>
                   <td>
                     <button>Remove</button>
                   </td>
                   <td>
-                    <img src={product.photo} />
+                    <img src={cartItem.chocolate.photo} />
                   </td>
                   <td>
-                    <Link to={`/products/${product.id}`} key={product.id}>
-                      {product.name}
+                    <Link to={`/cartItem.chocolates/${cartItem.chocolate.id}`} key={cartItem.chocolate.id}>
+                      {cartItem.chocolate.name}
                     </Link>
                   </td>
                   <td>
-                    <input />
+                    {cartItem.quantity}
                   </td>
                   <td>
-                    {product.price}
+                    {cartItem.chocolate.price}
+                  </td>
+                  <td>
+                    {cartItem.chocolate.price * cartItem.quantity}
                   </td>
                 </tr>
               )
