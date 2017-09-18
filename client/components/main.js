@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
 import {logout} from '../store'
+import Navbar from './Navbar'
 
 /**
  * COMPONENT
@@ -11,30 +12,31 @@ import {logout} from '../store'
  *  rendered out by the component's `children`.
  */
 const Main = (props) => {
-  const {children, handleClick, isLoggedIn} = props
+  const {children} = props
 
   return (
     <div>
       <h1>COCO's Chocolate LoveShack</h1>
-      <nav className="navbar navbar-inverse bg-primary">
+      {/* <nav className="navbar navbar-inverse bg-primary">
         <Link to='/products'>Products</Link>
         {
           isLoggedIn
-            ? <div>
+            ? <div> */}
               {/* The navbar will show these links after you log in */}
-              <Link to='/myhome'>Home</Link>
+              {/* <Link to='/myhome'>Home</Link>
               <a href='#' onClick={handleClick}>Logout</a>
             </div>
-            : <div>
-              {/* The navbar will show these links before you log in */}
-              <Link to='/login'>Login</Link>
+            : <div> */}
+              {/* //The navbar will show these links before you log in */}
+              {/* <Link to='/login'>Login</Link>
               <Link to='/signup'>Sign Up</Link>
               <input className=""/>
               <button className="btn btn-primary">Search:</button>
             </div>
         }
 
-      </nav>
+      </nav> */}
+      <Navbar {...props}/>
       <hr />
       {children}
     </div>
