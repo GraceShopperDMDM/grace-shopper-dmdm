@@ -3,10 +3,12 @@ import axios from 'axios'
 // action types
 const GET_REVIEWS = 'GET_REVIEWS'
 const GET_CURR_USER_REVIEWS = 'GET_CURR_USER_REVIEWS'
+const GET_CURR_PROD_REVIEWS = 'GET_CURR_PROD_REVIEWS'
 // initial state
 const intialState = {
   reviews: [],
-  currUserReviews: []
+  currUserReviews: [],
+  currProdReviews: []
 }
 
 // action creators
@@ -21,6 +23,13 @@ const getCurrUserReviews = (currUserReviews) => {
   return {
     type: GET_CURR_USER_REVIEWS,
     currUserReviews
+  }
+}
+
+const getCurrProdReviews = (currProdReviews) => {
+  return {
+    type: GET_CURR_PROD_REVIEWS,
+    currProdReviews
   }
 }
 
@@ -48,6 +57,17 @@ export function fetchCurrUserReviews (id) {
   }
 }
 
+export function fetchCurrProdReviews (id) {
+  return function thunk (dispatch) {
+    return axios.get(`/api/products/${id}/reviews`)
+      .then(res => res.data)
+      .then(reviews => {
+        dispatch(getCurrProdReviews(reviews))
+      })
+      .catch(console.error)
+  }
+}
+
 // reviews reducer
 
 export default function reviewReducer (state = intialState, action) {
@@ -62,6 +82,11 @@ export default function reviewReducer (state = intialState, action) {
       return {
         ...state,
         currUserReviews: action.currUserReviews
+      }
+    case GET_CURR_PROD_REVIEWS:
+      return {
+        ...state,
+        currProdReviews: action.currProdReviews
       }
     default:
       return state
