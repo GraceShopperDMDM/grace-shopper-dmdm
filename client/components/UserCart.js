@@ -42,7 +42,7 @@ class UserCart extends Component {
               cartItems.map(cartItem =>
                 <tr key={cartItem.chocolate.id}>
                   <td>
-                    <button onClick={() => handleRemove(cartItem, user.id)}>
+                    <button className="btn btn-primary" onClick={() => handleRemove(cartItem, user.id)}>
                       Remove
                     </button>
                   </td>
