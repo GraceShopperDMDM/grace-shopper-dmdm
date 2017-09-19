@@ -50,7 +50,7 @@ class UserCart extends Component {
                     <img src={cartItem.chocolate.photo} />
                   </td>
                   <td>
-                    <Link to={`/cartItem.chocolates/${cartItem.chocolate.id}`} key={cartItem.chocolate.id}>
+                    <Link to={`/products/${cartItem.chocolate.id}`} key={cartItem.chocolate.id}>
                       {cartItem.chocolate.name}
                     </Link>
                   </td>
@@ -61,16 +61,32 @@ class UserCart extends Component {
                     {cartItem.chocolate.price}
                   </td>
                   <td>
-                    {cartItem.chocolate.price * cartItem.quantity}
+                    {+(cartItem.chocolate.price * cartItem.quantity).toFixed(2)}
                   </td>
                 </tr>
               )
             }
+            <tr>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th>Cart Total: </th>
+              <th>{tally(cartItems)}</th>
+            </tr>
           </tbody>
         </table>
       </div>
     )
   }
+}
+
+const tally = (items) => {
+  let result = 0
+  for (let j = 0; j < items.length; j++) {
+    result += items[j].chocolate.price * items[j].quantity
+  }
+  return +result.toFixed(2)
 }
 
 const mapState = (state) => {
