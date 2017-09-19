@@ -1,17 +1,21 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import {fetchReviews, putCart} from '../store'
 import store, {submitUserReview} from '../store'
 import ProductReviews from './ProductReviews'
 
 export const SingleProduct = (props) => {
   const product = props.product[0] || {name: ''}
+  const {handleAdd, user} = props
+  product.quantity = 1
   console.log('props', props)
   return (
     <div>
       <div className="container col-xs-4">
         <label>{product.name}</label>
         <img className="rounded img-fluid" src={product.photo} />
+        <button onClick={() => handleAdd(product, user.id)}>Add to Cart</button>
         <p>{product.description}</p>
       </div>
       <div className="container col-xs-8">
@@ -47,6 +51,11 @@ const mapState = (state, ownProps) => {
 
 const mapDispatch = (dispatch, ownProps) => {
   return {
+    handleAdd: (cart, id) => {
+      console.log('added', cart, id)
+      cart.chocolateId = cart.id
+      dispatch(putCart(cart, id))
+    },
     SubmitReview: (e) => {
       e.preventDefault()
       const rating = e.target.rating.value

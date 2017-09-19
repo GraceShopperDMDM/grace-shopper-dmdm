@@ -55,7 +55,7 @@ export default function Navbar (props) {
                 <a href="#" className="dropdown-toggle" data-toggle="dropdown">Account <b className="caret"></b></a>
                 <ul className="dropdown-menu">
                   <li><Link to="/myhome">Home</Link></li>
-                  <li><Link to="#">Cart</Link></li>
+                  <li><Link to={`/users/${user.id}/cart`}>Cart</Link></li>
                   <li><Link to="#">My Orders</Link></li>
                   <li><Link to={`/users/${user.id}/reviews`}>My Reviews</Link></li>
                   <li className="divider"></li>
