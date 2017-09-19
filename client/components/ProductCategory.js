@@ -1,20 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import {AllProducts} from './AllProducts'
 
 export const ProductCategory = (props) => {
   const products = props.products
+  console.log('HERE', products)
   return (
-    <div>
-      {
-        products.map(product =>
-          <Link to={`/products/${product.id}`} key={product.id}>
-            {product.name}
-            <img src={product.photo} />
-          </Link>
-        )
-      }
-    </div>
+    <AllProducts products={products} />
   )
 }
 

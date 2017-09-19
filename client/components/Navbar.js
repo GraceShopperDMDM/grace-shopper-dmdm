@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import history from '../history'
 
 export default class Navbar extends React.Component {
   // const {handleClick, isLoggedIn, user, products} = props
@@ -70,6 +71,19 @@ export default class Navbar extends React.Component {
             </div>
           </form>
         </div>
+        <div className="col-sm-3 col-md-3">
+          <form className="navbar-form">
+            <div className="input-group">
+              <select className="form-control" onChange={handleChange}>
+                <option value="/products">All</option>
+                <option value="/category/fudge">Fudge</option>
+                <option value="/category/dark">Dark</option>
+                <option value="/category/white">White</option>
+                <option value="/category/ice cream">Ice Cream</option>
+              </select>
+            </div>
+          </form>
+        </div>
         <ul className="nav navbar-nav navbar-right">
           {
             !this.props.isLoggedIn && <li><Link to="/login">LogIn</Link></li>
@@ -96,4 +110,9 @@ export default class Navbar extends React.Component {
       </div>
     </nav>
   )}
+}
+
+function handleChange(e){
+  console.log('hit', e.target.value)
+  history.push(e.target.value)
 }

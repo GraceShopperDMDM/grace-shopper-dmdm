@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 
 export const AllProducts = (props) => {
   const products = props.products
+  console.log('PROPS', props)
   return (
     <div>
       {

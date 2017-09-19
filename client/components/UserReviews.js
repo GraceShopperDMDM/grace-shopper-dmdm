@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchCurrUserReviews} from '../store'
+import {fetchCurrUserReviews, fetchCurrProdReviews} from '../store'
 import {Link} from 'react-router-dom'
 
 class UserReviews extends React.Component {
@@ -23,8 +23,10 @@ class UserReviews extends React.Component {
             (
               <div key={review.id}>
                 <Link to={`/products/${review.chocolate.id}`}><img src={review.chocolate.photo} /></Link>
-                <p>{review.stars}</p>
-                <p>{review.body}</p>
+                <Link to={`/users/${review.userId}/reviews/${review.id}`}>
+                  <p>{review.stars}</p>
+                  <p>{review.body}</p>
+                </Link>
               </div>
             )
           )
@@ -44,9 +46,8 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     getReviews: (id) => {
-      console.log(id)
-      // console.log(props.match.params.id)
       dispatch(fetchCurrUserReviews(id))
+      dispatch(fetchCurrProdReviews(id))
     }
   }
 }

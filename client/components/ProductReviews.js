@@ -16,9 +16,11 @@ class ProductReviews extends React.Component {
           reviews.map(review =>
             (
               <div key={review.id}>
-                <p>{review.stars} Stars</p>
-                <p>{review.body}</p>
-                <p>User {review.userId}</p>
+                <Link to={`/users/${review.userId}/reviews/${review.id}`}>
+                  <p>{review.stars} Stars</p>
+                  <p>{review.body}</p>
+                  <p>User {review.userId}</p>
+                </Link>
               </div>
             )
           )

@@ -11,6 +11,7 @@ import {
   UserHome,
   AllUsers,
   EditSingleUser,
+  EditSingleReview,
   AllProducts,
   SingleProduct,
   ProductCategory,
@@ -38,17 +39,19 @@ class Routes extends Component {
             <Route path='/login' component={Login} />
             <Route path='/signup' component={Signup} />
             <Route exact path='/products' component={AllProducts} />
-            <Route path='/products/:id' component={SingleProduct} />
+            <Route exact path='/products/:id' component={SingleProduct} />
             <Route path='/category/:categoryName' component={ProductCategory} />
             <Route path='/users/:id/cart' component={UserCart} />
             <Route exact path='/users/:id' component={EditSingleUser} />
             <Route exact path='/users' component={AllUsers} />
             <Route exact path='/users/:id/reviews' component={UserReviews} />
+            <Route exact path='/users/:id/reviews/:reviewId' component={EditSingleReview} />
             {
               isLoggedIn &&
                 <Switch>
                   {/* Routes placed here are only available after logging in */}
                   <Route path='/myhome' component={UserHome} />
+                  <Route component={AllProducts} />
                 </Switch>
             }
             {/* Displays our Login component as a fallback */}
