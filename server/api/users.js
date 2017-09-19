@@ -46,24 +46,24 @@ router.get('/:id/orders', isAuthenticated, selfOrAdmin, (req, res, next) => {
     .catch(next)
 })
 
-router.get('/:id/cart', isAuthenticated, selfOrAdmin, (req, res, next) => {
-  User.findOne({
-    where: {
-      id: req.params.id
-    }
-  })
-    .then(user => {
-      Cart.findAll({
-        where: {
-          userId: user.id
-        }
-      }
-      )
-        .then(carts => res.json(carts))
-        .catch(console.error)
-    })
-    .catch(next)
-})
+// router.get('/:id/cart', isAuthenticated, selfOrAdmin, (req, res, next) => {
+//   User.findOne({
+//     where: {
+//       id: req.params.id
+//     }
+//   })
+//     .then(user => {
+//       Cart.findAll({
+//         where: {
+//           userId: user.id
+//         }
+//       }
+//       )
+//         .then(carts => res.json(carts))
+//         .catch(console.error)
+//     })
+//     .catch(next)
+// })
 
 // anyone can look at reviews - WORKS
 router.get('/:id/reviews', (req, res, next) => {
@@ -135,11 +135,20 @@ router.get('/:id/cart', (req, res, next) => {
 })
 
 router.put('/:id/cart', (req, res, next) => {
+  console.log('tehe', req.body)
   Cart.findOrCreate({where: {userId: req.params.id, chocolateId: req.body.chocolateId}, defaults: {quantity: req.body.quantity}})
     .then(cart => {
+      console.log('here????')
       cart[0].update(req.body)
         .then(updatedCart => res.json(updatedCart))
     })
+})
+
+router.delete('/:id/cart/:chocolateId', (req, res, next) => {
+  console.log('req body', req.params)
+  Cart.destroy({where: {userId: req.params.id, chocolateId: req.params.chocolateId}})
+    .then(() => res.sendStatus(204))
+    .catch(next)
 })
 
 // only self or admin can get an individual user's order - WORKS

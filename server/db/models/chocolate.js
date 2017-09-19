@@ -15,7 +15,7 @@ const Chocolate = db.define('chocolate', {
     allowNull: false
   },
   price: {
-    type: Sequelize.INTEGER, // in cents OR Seq.DECIMAL
+    type: Sequelize.DECIMAL, // in cents OR Seq.DECIMAL
     allowNull: false
   },
   stock: { // default val, nonzero validation
