@@ -31,6 +31,17 @@ export default function Navbar (props) {
             </div>
           </form>
         </div>
+        <div className="col-sm-3 col-md-3">
+          <form className="navbar-form" role="categories">
+            <div className="input-group">
+              <select className="form-control" onChange={handleChange}>
+                <option value="products">All</option>
+                <option value="new">New</option>
+                <option value="what">Maybe</option>
+              </select>
+            </div>
+          </form>
+        </div>
         <ul className="nav navbar-nav navbar-right">
           {
             !isLoggedIn && <li><Link to="/login">LogIn</Link></li>
@@ -57,4 +68,8 @@ export default function Navbar (props) {
       </div>
     </nav>
   )
+}
+
+function handleChange(e){
+  console.log('hit')
 }
