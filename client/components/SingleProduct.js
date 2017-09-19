@@ -30,6 +30,7 @@ const mapDispatch = (dispatch, ownProps) => {
   return {
     handleAdd: (cart, id) => {
       console.log('added', cart, id)
+      cart.chocolateId = cart.id
       dispatch(putCart(cart, id))
     }
   }

@@ -36,7 +36,7 @@ export const putCart = (updatedCart, id) =>
     axios.put(`/api/users/${id}/cart`, {
       quantity: updatedCart.quantity,
       userId: id,
-      chocolateId: updatedCart.id
+      chocolateId: updatedCart.chocolateId
     })
       .then(res => {
         console.log('here be data', res.data)
