@@ -76,6 +76,7 @@ class UserCart extends Component {
             </tr>
           </tbody>
         </table>
+        <button className="btn btn-default">Checkout</button>
       </div>
     )
   }
@@ -111,6 +112,9 @@ const mapDispatch = (dispatch, ownProps) => {
       console.log('target?', cart, userId)
       dispatch(putCart(cart, userId))
     }
+    // handleCheckout () {
+    //   dispatch(addOrder(this.props.cart))
+    // }
   }
 }
 

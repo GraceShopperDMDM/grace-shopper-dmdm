@@ -180,7 +180,7 @@ router.post('/:id/reviews', isAuthenticated, self, (req, res, next) => {
 })
 
 // only self or admin can edit a review - isAuthenticated Works via curl
-router.put('/:id/reviews/:reviewId', (req, res, next) => {
+router.put('/:id/reviews/:reviewId', isAuthenticated, self, (req, res, next) => {
   User.findById(req.params.id)
     .then(user => {
       return user.getReviews({
