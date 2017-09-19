@@ -10,7 +10,7 @@ export const ProductCategory = (props) => {
         products.map(product =>
           <Link to={`/products/${product.id}`} key={product.id}>
             {product.name}
-            <img src={product.photo} />
+            <img src={product.photo} className="img img-responsive" />
           </Link>
         )
       }
