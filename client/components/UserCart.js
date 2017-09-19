@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { fetchCart } from '../store'
+import { fetchCart, deleteCartThunk } from '../store'
 
 class UserCart extends Component {
   // constructor (props) {
@@ -15,15 +15,17 @@ class UserCart extends Component {
   render () {
     const products = this.props.products
     const cartItems = this.props.cart || []
+    const handleRemove = this.props.handleRemove
+    const user = this.props.user
 
     for (let i = 0; i < cartItems.length; i++) {
       cartItems[i].chocolate = products.find(product => {
-        console.log(cartItems[i].chocolateId)
-        console.log(product.id)
+        // console.log(cartItems[i].chocolateId)
+        // console.log(product.id)
         return +product.id === +cartItems[i].chocolateId
       })
     }
-    console.log(cartItems)
+    // console.log(cartItems)
 
     return (
       <div>
@@ -42,7 +44,9 @@ class UserCart extends Component {
               cartItems.map(cartItem =>
                 <tr key={cartItem.chocolate.id}>
                   <td>
-                    <button>Remove</button>
+                    <button onClick={() => handleRemove(cartItem, user.id)}>
+                      Remove
+                    </button>
                   </td>
                   <td>
                     <img src={cartItem.chocolate.photo} />
@@ -72,16 +76,21 @@ class UserCart extends Component {
 }
 
 const mapState = (state) => {
-  console.log('state', state)
+  // console.log('state', state)
   return {
     products: state.product.products,
-    cart: state.cart
+    cart: state.cart,
+    user: state.user
   }
 }
 
 const mapDispatch = (dispatch, ownProps) => {
   return {
     loadCart () {
+      dispatch(fetchCart(ownProps.match.params.id))
+    },
+    handleRemove (cart, userId) {
+      dispatch(deleteCartThunk(cart, userId))
       dispatch(fetchCart(ownProps.match.params.id))
     }
   }

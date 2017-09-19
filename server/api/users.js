@@ -135,7 +135,7 @@ router.get('/:id/cart', (req, res, next) => {
 })
 
 router.put('/:id/cart', (req, res, next) => {
-  console.log('tehe')
+  console.log('tehe', req.body)
   Cart.findOrCreate({where: {userId: req.params.id, chocolateId: req.body.chocolateId}, defaults: {quantity: req.body.quantity}})
     .then(cart => {
       console.log('here????')
@@ -144,8 +144,9 @@ router.put('/:id/cart', (req, res, next) => {
     })
 })
 
-router.delete('/:id/cart/', (req, res, next) => {
-  Cart.destroy({where: {userId: req.params.id, chocolateId: req.body.chocolateId}})
+router.delete('/:id/cart/:chocolateId', (req, res, next) => {
+  console.log('req body', req.params)
+  Cart.destroy({where: {userId: req.params.id, chocolateId: req.params.chocolateId}})
     .then(() => res.sendStatus(204))
     .catch(next)
 })

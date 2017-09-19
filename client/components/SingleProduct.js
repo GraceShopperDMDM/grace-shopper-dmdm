@@ -7,6 +7,7 @@ export const SingleProduct = (props) => {
   const product = props.product[0] || {name: ''}
   const {handleAdd, user} = props
   console.log('product', product)
+  product.quantity = 1
   return (
     <div className="container col-xs-3">
       <label>{product.name}</label>

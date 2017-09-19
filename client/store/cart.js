@@ -33,7 +33,7 @@ export const fetchCart = (id) =>
 
 export const putCart = (updatedCart, id) =>
   dispatch =>
-    axios.put(`/api/users/1/cart`, {
+    axios.put(`/api/users/${id}/cart`, {
       quantity: updatedCart.quantity,
       userId: id,
       chocolateId: updatedCart.id
@@ -45,12 +45,16 @@ export const putCart = (updatedCart, id) =>
       .catch(err => console.log(err))
 
 export const deleteCartThunk = (cart, id) =>
-  dispatch =>
-    axios.delete(`/api/users/${id}/cart`, cart)
+  dispatch => {
+    console.log('cart and id: ', cart, id)
+    const chocolateId = cart.chocolateId
+    axios.delete(`/api/users/${id}/cart/${chocolateId}`)
       .then(res => {
+        console.log('deleted')
         dispatch(deleteCart(cart))
       })
       .catch(err => console.log(err))
+  }
 
 /**
  * REDUCER
