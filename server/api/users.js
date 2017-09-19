@@ -170,7 +170,10 @@ router.post('/:id/reviews', isAuthenticated, self, (req, res, next) => {
   User.findById(req.params.id)
     .then(user => {
       Review.create(req.body)
-        .then(review => user.addReview(review))
+        .then(review => {
+          review.userId = +req.params.id
+          return review
+        })
         .then(newReview => res.json(newReview))
     })
     .catch(next)
