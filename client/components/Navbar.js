@@ -1,8 +1,47 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 
-export default function Navbar (props) {
-  const {handleClick, isLoggedIn, user} = props
+export default class Navbar extends React.Component {
+  // const {handleClick, isLoggedIn, user, products} = props
+
+  constructor () {
+    super();
+    this.state = {
+      input_text: '',
+      current_id: 0
+    }
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  
+    handleChange (e) {
+      this.state.input_text = e.target.value
+      this.props.products.forEach(product =>{
+        if(product.name === this.state.input_text) {
+            console.log(product.id)
+            this.setState({current_id: product.id})
+          }        
+      })
+
+    }
+
+    handleSubmit () {
+      this.props.products.forEach(product => {
+        if(product.name === this.state.input_text) {
+          console.log(product.id)
+          return product.id
+        }
+      })
+    }
+
+
+
+
+  render(){
+
+    let el = this.handleSubmit();
+
+
   return (
     <nav className="navbar navbar-default" role="navigation">
 
@@ -24,31 +63,31 @@ export default function Navbar (props) {
         <div className="col-sm-3 col-md-3">
           <form className="navbar-form" role="search">
             <div className="input-group">
-              <input type="text" className="form-control" placeholder="Search" name="q" />
+              <input type="text" className="form-control" placeholder="Search" name="q" onChange={this.handleChange}/>
               <div className="input-group-btn">
-                <button className="btn btn-default" type="submit"><i className="glyphicon glyphicon-search"></i></button>
+                <Link className="btn btn-default" type="submit" to={`/products/${this.state.current_id}`}><i className="glyphicon glyphicon-search"></i></Link>
               </div>
             </div>
           </form>
         </div>
         <ul className="nav navbar-nav navbar-right">
           {
-            !isLoggedIn && <li><Link to="/login">LogIn</Link></li>
+            !this.props.isLoggedIn && <li><Link to="/login">LogIn</Link></li>
           }
           {
-            !isLoggedIn && <li><Link to="/signup">SignUp</Link></li>
+            !this.props.isLoggedIn && <li><Link to="/signup">SignUp</Link></li>
           }
           {
-            isLoggedIn && (
+            this.props.isLoggedIn && (
               <li className="dropdown">
                 <a href="#" className="dropdown-toggle" data-toggle="dropdown">Account <b className="caret"></b></a>
                 <ul className="dropdown-menu">
                   <li><Link to="/myhome">Home</Link></li>
                   <li><Link to="#">Cart</Link></li>
                   <li><Link to="#">My Orders</Link></li>
-                  <li><Link to={`/users/${user.id}/reviews`}>My Reviews</Link></li>
+                  <li><Link to={`/users/${this.props.user.id}/reviews`}>My Reviews</Link></li>
                   <li className="divider"></li>
-                  <li><Link onClick={handleClick} to="/logout">Logout</Link></li>
+                  <li><Link onClick={this.props.handleClick} to="/logout">Logout</Link></li>
                 </ul>
               </li>
             )
@@ -56,5 +95,5 @@ export default function Navbar (props) {
         </ul>
       </div>
     </nav>
-  )
+  )}
 }

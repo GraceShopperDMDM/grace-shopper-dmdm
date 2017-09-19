@@ -49,7 +49,8 @@ const Main = (props) => {
 const mapState = (state) => {
   return {
     isLoggedIn: !!state.user.id,
-    user: state.user
+    user: state.user,
+    products: state.product.products
   }
 }
 
