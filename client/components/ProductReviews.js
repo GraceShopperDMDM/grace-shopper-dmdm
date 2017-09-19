@@ -37,7 +37,6 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     getReviews: (id) => {
-      console.log(id)
       dispatch(fetchCurrProdReviews(id))
     }
   }
