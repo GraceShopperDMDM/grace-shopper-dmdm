@@ -1,12 +1,13 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {fetchUsers} from '../store'
+import {fetchUsers, removeUser} from '../store'
 
 class AllUsers extends React.Component {
   componentDidMount () {
     this.props.getAllUsers()
   }
+
   render () {
     let {users, user} = this.props
     if (users.length && user.isAdmin) {
@@ -24,23 +25,26 @@ class AllUsers extends React.Component {
                       {
                         users.map(user => {
                           return (
-                            <Link key={user.id} to={`/users/${user.id}`}>
-                              <tr>
-                                <td width="10">
-                                  <i className="fa fa-2x fa-user fw"></i>
-                                </td>
-                                <td>
-                                  {user.username}<br/>
-                                  <i className="fa fa-envelope"></i>
-                                </td>
-                                <td>
-                                  {user.isAdmin}
-                                </td>
-                                <td>
-                                  Last Login:  6/14/2017<br /><small className="text-muted">2 days ago</small>
-                                </td>
-                              </tr>
-                            </Link>
+                            <div key={user.id + user.name}>
+                              <Link to={`/users/${user.id}`}>
+                                <tr>
+                                  <td width="10">
+                                    <i className="fa fa-2x fa-user fw"></i>
+                                  </td>
+                                  <td>
+                                    {user.username}<br/>
+                                    <i className="fa fa-envelope"></i>
+                                  </td>
+                                  <td>
+                                    {user.isAdmin}
+                                  </td>
+                                  <td>
+                                    Last Login:  6/14/2017<br /><small className="text-muted">2 days ago</small>
+                                  </td>
+                                </tr>
+                              </Link>
+                              <button value={user.id} className='btn btn-danger' onClick={this.props.deleteUser}>Delete</button>
+                            </div>
                           )
                         })
                       }
@@ -85,6 +89,9 @@ const mapDispatch = (dispatch) => {
   return {
     getAllUsers: () => {
       dispatch(fetchUsers())
+    },
+    deleteUser: (e) => {
+      dispatch(removeUser(e.target.value))
     }
   }
 }
