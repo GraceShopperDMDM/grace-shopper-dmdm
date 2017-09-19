@@ -5,6 +5,7 @@ import axios from 'axios'
  */
 const GET_CART = 'GET_CART'
 const UPDATE_CART = 'UPDATE_CART'
+const DELETE_CART = 'DELETE_CART'
 
 /**
  * INITIAL STATE
@@ -16,6 +17,7 @@ const cart = []
  */
 const getCart = cart => ({type: GET_CART, cart})
 const updateCart = cart => ({type: UPDATE_CART, cart})
+const deleteCart = cart => ({type: DELETE_CART, cart})
 
 /**
  * THUNK CREATORS
@@ -31,9 +33,22 @@ export const fetchCart = (id) =>
 
 export const putCart = (updatedCart, id) =>
   dispatch =>
-    axios.put(`/api/users/${id}/cart`, updatedCart)
+    axios.put(`/api/users/1/cart`, {
+      quantity: updatedCart.quantity,
+      userId: id,
+      chocolateId: updatedCart.id
+    })
       .then(res => {
+        console.log('here be data', res.data)
         dispatch(updateCart(res.data))
+      })
+      .catch(err => console.log(err))
+
+export const deleteCartThunk = (cart, id) =>
+  dispatch =>
+    axios.delete(`/api/users/${id}/cart`, cart)
+      .then(res => {
+        dispatch(deleteCart(cart))
       })
       .catch(err => console.log(err))
 
@@ -45,7 +60,9 @@ export default function (state = cart, action) {
     case GET_CART:
       return action.cart
     case UPDATE_CART:
-      return Object.assign([], state, action.cart)
+      return Object.assign([], state, state.map(cart => (+cart.id === +action.cart.id && cart.chocolateId === action.cart.chocolateId) ? action.cart : cart))
+    case DELETE_CART:
+      return Object.assign([], state, state.map(cart => (+cart.id === +action.cart.id && cart.chocolateId === action.cart.chocolateId) ? {} : cart))
     default:
       return state
   }
