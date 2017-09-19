@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import store, {fetchReviews, putCart} from '../store'
+import ProductReviews from './ProductReviews'
 
 export const SingleProduct = (props) => {
   const product = props.product[0] || {name: ''}
@@ -12,7 +13,8 @@ export const SingleProduct = (props) => {
     <div className="container col-xs-3">
       <label>{product.name}</label>
       <img className="rounded img-fluid" src={product.photo} />
-      <button onClick={() => handleAdd(product, user.id)}>Add</button>
+      <button onClick={() => handleAdd(product, user.id)}>Add to Cart</button>
+      <ProductReviews {...props}/>
     </div>
   )
 }
