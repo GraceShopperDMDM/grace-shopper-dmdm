@@ -17,7 +17,6 @@ export const EditSingleUser = (props) => {
           <div className="row">
             <div className="col-md-4" >
               <form className="panel panel-primary" onSubmit={props.handleSubmit}>
-                <div className="panel-heading">Edit {user.username}</div>
                 <div className="panel-body">
                   <label>Username</label><input type='text' name="username"className='form-control' defaultValue={user.username} />
                   <label>Email</label><input type='text' name="email" className='form-control' defaultValue={user.email} />

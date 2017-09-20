@@ -12,7 +12,6 @@ export const EditSingleReview = (props) => {
           <div className="row">
             <div className="col-md-4" >
               <form className="panel panel-primary" onSubmit={props.handleSubmit}>
-                <div className="panel-heading">Edit Review</div>
                 <div className="panel-body">
                   <label>Rate This Product</label>
                   <select name="ratings" defaultValue={`{currReview.stars}`}>

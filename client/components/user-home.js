@@ -18,7 +18,7 @@ export const UserHome = (props) => {
         <div className="col-sm-12">
           {user.isAdmin &&
           <div className="row">
-            <div className="col-lg-3">
+            <div className="col-lg-4">
               <div className="panel panel-info">
                 <div className="panel-heading">
                   <div className="row">
@@ -45,7 +45,7 @@ export const UserHome = (props) => {
                 </Link>
               </div>
             </div>
-            <div className="col-lg-3">
+            <div className="col-lg-4">
               <div className="panel panel-warning">
                 <div className="panel-heading">
                   <div className="row">
@@ -72,7 +72,7 @@ export const UserHome = (props) => {
                 </Link>
               </div>
             </div>
-            <div className="col-lg-3">
+            {/* <div className="col-lg-3">
               <div className="panel panel-danger">
                 <div className="panel-heading">
                   <div className="row">
@@ -85,7 +85,7 @@ export const UserHome = (props) => {
                     </div>
                   </div>
                 </div>
-                <a href="#">
+                <Link href={`users/2/reviews`}>
                   <div className="panel-footer announcement-bottom">
                     <div className="row">
                       <div className="col-xs-6">
@@ -96,10 +96,10 @@ export const UserHome = (props) => {
                       </div>
                     </div>
                   </div>
-                </a>
+                </Link>
               </div>
-            </div>
-            <div className="col-lg-3">
+            </div> */}
+            <div className="col-lg-4">
               <div className="panel panel-success">
                 <div className="panel-heading">
                   <div className="row">
@@ -112,7 +112,7 @@ export const UserHome = (props) => {
                     </div>
                   </div>
                 </div>
-                <a href="#">
+                <Link to href={`users/${user.id}/orders`}>
                   <div className="panel-footer announcement-bottom">
                     <div className="row">
                       <div className="col-xs-6">
@@ -123,7 +123,7 @@ export const UserHome = (props) => {
                       </div>
                     </div>
                   </div>
-                </a>
+                </Link>
               </div>
             </div>
           </div>

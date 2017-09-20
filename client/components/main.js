@@ -16,28 +16,8 @@ const Main = (props) => {
   console.log('===>', props)
   return (
     <div>
-      <h1>COCO's Chocolate LoveShack</h1>
-      {/* <nav className="navbar navbar-inverse bg-primary">
-        <Link to='/products'>Products</Link>
-        {
-          isLoggedIn
-            ? <div> */}
-              {/* The navbar will show these links after you log in */}
-              {/* <Link to='/myhome'>Home</Link>
-              <a href='#' onClick={handleClick}>Logout</a>
-            </div>
-            : <div> */}
-              {/* //The navbar will show these links before you log in */}
-              {/* <Link to='/login'>Login</Link>
-              <Link to='/signup'>Sign Up</Link>
-              <input className=""/>
-              <button className="btn btn-primary">Search:</button>
-            </div>
-        }
-
-      </nav> */}
+      <h1 id="main-title">COCO's Chocolate LoveShack</h1>
       <Navbar {...props}/>
-      <hr />
       {children}
     </div>
   )
