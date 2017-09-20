@@ -39,7 +39,8 @@ export class UserOrderList extends React.Component {
                             <tr>
                               <th>Product ID: {chocolate.id}</th>
                               <th><Link to={`/products/${chocolate.id}`}>Name: {chocolate.name}</Link> </th>
-                              <th><img src={chocolate.photo} className="img-rounded" alt="Cinque Terre" width="20%" /></th>
+                              <th><img src={chocolate.photo} className="img-rounded" alt="Cinque Terre" width="15%" /></th>
+                              <th>Price: {chocolate.chocolateOrder.purchasedPrice}</th>
                               <th>Quantity: {chocolate.chocolateOrder.quantity}</th>
                               <th>Total: {chocolate.chocolateOrder.totalPrice}</th>
                             </tr>

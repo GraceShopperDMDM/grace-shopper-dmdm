@@ -86,6 +86,9 @@ export default class Navbar extends React.Component {
             !this.props.isLoggedIn && <li><Link to="/signup">SignUp</Link></li>
           }
           {
+            this.props.isLoggedIn && <p>Welcome {this.props.user.username}</p>
+          }
+          {
             this.props.isLoggedIn && (
               <li className="dropdown">
                 <a href="#" className="dropdown-toggle" data-toggle="dropdown">Account <b className="caret"></b></a>
