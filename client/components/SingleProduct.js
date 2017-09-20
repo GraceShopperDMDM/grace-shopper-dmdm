@@ -26,10 +26,10 @@ export const SingleProduct = (props) => {
                 <h3 className="product-title">{product.name}</h3>
                 <p className="product-description">{product.description}</p>
                 <h4 className="price">Price: <span>{product.price}</span></h4>
-                <Link to={`/users/${user.id}/cart`} className="btn btn-primary" onClick={() => handleAdd(product, user.id)}>Add to Cart</Link>
+                <Link to={`/users/${user.id}/cart`} id="add-cart" className="btn" onClick={() => handleAdd(product, user.id)}>Add to Cart</Link>
 
                 <form onSubmit={props.SubmitReview}>
-                  <label>Rate This Product</label>
+                  <label id="rate-product">Rate This Product</label>
                   <select name="rating">
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -38,11 +38,11 @@ export const SingleProduct = (props) => {
                     <option value="5">5</option>
                   </select>
                   <input readOnly name="userId" value={props.user.id} type="hidden"/>
-                  <label>Add Your Review</label>
+                  <label id="add-review">Add Your Review</label>
                   <textarea name="review" type="text" style= {{width: 500 + 'px', height: 100 + 'px'}} placeholder="Write Review" />
-                  <button className="btn btn-primary">Submit</button>
+                  <button id="cart-submit" className="btn">Submit</button>
                 </form>
-                <h2>Product Reviews</h2>
+                <h2 id="product-reviews">Product Reviews</h2>
                 <ProductReviews {...props}/>
               </div>
           </div>

@@ -1,7 +1,14 @@
 body {
-  font-family: sans-serif;
+  font-family: 'Oswald', sans-serif;
+  font-size: 20px;
 
   a {
+    text-decoration: none;
+    color: #CE9350;
+  }
+
+  a:hover {
+    color: #DFD3AD;
     text-decoration: none;
   }
 
@@ -18,12 +25,20 @@ body {
     margin: 1em;
     display: inline-block;
   }
+
+  .img-responsive {
+    display: block;
+    margin: auto;
+    width: 400px;
+    height: 250px;
+    align-items: center;
+  }
 }
 
 /*   */
 
 body{margin-top:20px;
-  background:#eee;
+  background:#5a423b;
   }
 
 .btn-compose-email {
@@ -287,12 +302,12 @@ form .form-group {
         .nav-tabs > li.active > a, .nav-tabs > li > a:hover { border: none; color: #4285F4 !important; background: transparent; }
         .nav-tabs > li > a::after { content: ""; background: #4285F4; height: 2px; position: absolute; width: 100%; left: 0px; bottom: -1px; transition: all 250ms ease 0s; transform: scale(0); }
     .nav-tabs > li.active > a::after, .nav-tabs > li:hover > a::after { transform: scale(1); }
-.tab-nav > li > a::after { background: #21527d none repeat scroll 0% 0%; color: #fff; }
+.tab-nav > li > a::after { background: #21527d none repeat scroll 0% 0%; color: #CE9350; }
 .tab-pane { padding: 15px 0; }
 .tab-content{padding:20px}
 
 .card {background: #FFF none repeat scroll 0% 0%; box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3); margin-bottom: 30px; }
-body{ background: #EDECEC; padding:50px}
+body{ background: #2B1300 url('http://www.opendesigns.org/od/wp-content/designs/1/1291/img/bg.gif') repeat 0; padding:50px}
 /****** tab *********/
 
 
@@ -307,4 +322,66 @@ i {  vertical-align: middle; }
 }
 .user_panel {
     width: 50%;
+}
+
+body {
+  color: #CE9350;
+}
+
+.navbar-default .navbar-brand {
+  color: #CE924F;
+}
+
+.nav .open>a {
+  border-color: #DFD3AD;
+  text-decoration: none;
+}
+
+#main-title {
+  font-family: 'Lobster', cursive;
+}
+
+.navbar-default .navbar-nav>li>a {
+  color: #CE924F;
+}
+
+.navbar-default .navbar-nav>li>a:hover {
+  color: #DFD3AD;
+  text-decoration: none;
+}
+
+img {
+  height: 300px;
+  width: 450px;
+}
+
+.nav-tabs > li > a::after {
+  content: none;
+  background: none;
+}
+
+#add-cart {
+  background-color: #291200 !important;
+  color: #DFD3AD
+}
+
+#cart-submit {
+  background-color: #291200 !important;
+  color: #DFD3AD
+}
+
+.product-title {
+  color: #291200
+}
+
+#add-review, #rate-product, #product-reviews {
+  color: #291200
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li > a:hover {
+  color: #DFD3AD !important;
+}
+
+.nav-tabs > li > a {
+  color: #291200
 }

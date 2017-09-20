@@ -25,7 +25,7 @@ class AllUsers extends React.Component {
                       {
                         users.map(user => {
                           return (
-                            <div key={user.id + user.name}>
+                            <div key={user.id + user.address}>
                               <Link to={`/users/${user.id}`}>
                                 <tr>
                                   <td width="10">

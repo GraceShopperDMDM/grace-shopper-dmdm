@@ -56,6 +56,8 @@ export const deleteCartThunk = (cart, id) =>
       .catch(err => console.log(err))
   }
 
+// export const orderCart = ()
+
 /**
  * REDUCER
  */
