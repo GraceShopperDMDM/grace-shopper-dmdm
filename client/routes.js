@@ -16,7 +16,8 @@ import {
   SingleProduct,
   ProductCategory,
   UserCart,
-  UserReviews
+  UserReviews,
+  UserOrderList
 } from './components'
 import {me, fetchUsers, fetchProducts} from './store'
 
@@ -51,6 +52,7 @@ class Routes extends Component {
                 <Switch>
                   {/* Routes placed here are only available after logging in */}
                   <Route path='/myhome' component={UserHome} />
+                  <Route path='/users/:id/orders' component={UserOrderList} />
                   <Route component={AllProducts} />
                 </Switch>
             }

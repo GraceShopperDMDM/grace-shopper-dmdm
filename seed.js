@@ -83,6 +83,11 @@ const orders = [{
   deliverydate: Date(),
   status: 'shipped',
   userId: 2
+}, {
+  shipdate: Date(),
+  deliverydate: Date(),
+  status: 'shipped',
+  userId: 2
 }]
 
 const reviews = [{
@@ -108,6 +113,21 @@ const chocolateOrders = [{
   purchasedPrice: 8.25,
   orderId: 2,
   chocolateId: 2
+}, {
+  quantity: 10,
+  purchasedPrice: 11.25,
+  orderId: 2,
+  chocolateId: 1
+}, {
+  quantity: 7,
+  purchasedPrice: 9.25,
+  orderId: 3,
+  chocolateId: 5
+}, {
+  quantity: 9,
+  purchasedPrice: 8.25,
+  orderId: 3,
+  chocolateId: 4
 }]
 
 const seed = () =>
