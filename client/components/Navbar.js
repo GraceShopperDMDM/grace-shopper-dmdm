@@ -6,43 +6,37 @@ export default class Navbar extends React.Component {
   // const {handleClick, isLoggedIn, user, products} = props
 
   constructor () {
-    super();
+    super()
     this.state = {
       input_text: '',
       current_id: 0
     }
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
-  
-    handleChange (e) {
-      this.state.input_text = e.target.value
-      this.props.products.forEach(product =>{
-        if(product.name === this.state.input_text) {
-            console.log(product.id)
-            this.setState({current_id: product.id})
-          }        
-      })
 
-    }
+  handleChange (e) {
+    this.state.input_text = e.target.value
+    this.props.products.forEach(product => {
+      if (product.name === this.state.input_text) {
+        console.log(product.id)
+        this.setState({current_id: product.id})
+      }
+    })
+  }
 
-    handleSubmit () {
-      this.props.products.forEach(product => {
-        if(product.name === this.state.input_text) {
-          console.log(product.id)
-          return product.id
-        }
-      })
-    }
+  handleSubmit () {
+    this.props.products.forEach(product => {
+      if (product.name === this.state.input_text) {
+        console.log(product.id)
+        return product.id
+      }
+    })
+  }
 
+  render () {
 
-
-
-  render(){
-
-    let el = this.handleSubmit();
-
-
+  let el = this.handleSubmit()
   return (
     <nav className="navbar navbar-default" role="navigation">
 
@@ -98,7 +92,7 @@ export default class Navbar extends React.Component {
                 <ul className="dropdown-menu">
                   <li><Link to="/myhome">Home</Link></li>
                   <li><Link to={`/users/${this.props.user.id}/cart`}>Cart</Link></li>
-                  <li><Link to="#">My Orders</Link></li>
+                  <li><Link to={`/users/${this.props.user.id}/orders`}>My Orders</Link></li>
                   <li><Link to={`/users/${this.props.user.id}/reviews`}>My Reviews</Link></li>
                   <li className="divider"></li>
                   <li><Link onClick={this.props.handleClick} to="/logout">Logout</Link></li>
