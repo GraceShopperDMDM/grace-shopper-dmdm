@@ -29,10 +29,14 @@ body {
   .img-responsive {
     display: block;
     margin: auto;
-    width: 400px;
-    height: 250px;
+    // width: 400px;
+    // height: 250px;
     align-items: center;
+    // flex-wrap: flex;
+
   }
+
+
 }
 
 /*   */
@@ -83,6 +87,15 @@ form .form-group {
     padding: 10px;
 }
 
+.row{
+  display: flex;
+ flex-wrap: wrap;
+}
+
+#order-pic {
+  width: 15%;
+  height: auto;
+}
 /* ========================================================================
   * MAIL
   * ======================================================================== */

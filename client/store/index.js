@@ -6,8 +6,8 @@ import allUsers from './allUsers'
 import product from './product'
 import reviews from './reviews'
 import cart from './cart'
-import orders from './orders'
-import order from './order'
+import orders from './order'
+import order from './orders'
 
 const reducer = combineReducers({user, allUsers, product, reviews, cart, orders, order})
 const middleware = applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
