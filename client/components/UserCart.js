@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { fetchCart, deleteCartThunk, putCart } from '../store'
+import { fetchCart, deleteCartThunk, putCart, orderCartThunk } from '../store'
 
 class UserCart extends Component {
   // constructor (props) {
@@ -10,11 +10,12 @@ class UserCart extends Component {
 
   componentDidMount () {
     this.props.loadCart()
+    console.log('THIS.PROPS', this.props)
   }
 
   render () {
     const cartItems = this.props.cart || []
-    const {user, products, handleRemove, handleChange} = this.props
+    const {user, products, handleRemove, handleChange, handleCheckout} = this.props
 
     for (let i = 0; i < cartItems.length; i++) {
       cartItems[i].chocolate = products.find(product => {
@@ -76,7 +77,7 @@ class UserCart extends Component {
             </tr>
           </tbody>
         </table>
-        <button className="btn btn-default">Checkout</button>
+        {/* <button onClick={handleCheckout(cartItems)} className="btn btn-default">Checkout</button> */}
       </div>
     )
   }
@@ -111,10 +112,10 @@ const mapDispatch = (dispatch, ownProps) => {
       cart.quantity = +e.target.value
       console.log('target?', cart, userId)
       dispatch(putCart(cart, userId))
+    },
+    handleCheckout (cartItems) {
+      dispatch(orderCartThunk(cartItems, ownProps.match.params.id))
     }
-    // handleCheckout () {
-    //   dispatch(addOrder(this.props.cart))
-    // }
   }
 }
 

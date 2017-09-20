@@ -6,7 +6,6 @@ import axios from 'axios'
 const GET_CART = 'GET_CART'
 const UPDATE_CART = 'UPDATE_CART'
 const DELETE_CART = 'DELETE_CART'
-const ORDER_CART = 'ORDER_CART'
 
 /**
  * INITIAL STATE
@@ -19,7 +18,6 @@ const cart = []
 const getCart = cart => ({type: GET_CART, cart})
 const updateCart = cart => ({type: UPDATE_CART, cart})
 const deleteCart = cart => ({type: DELETE_CART, cart})
-const orderCart = cart => ({type: ORDER_CART, cart})
 
 /**
  * THUNK CREATORS
