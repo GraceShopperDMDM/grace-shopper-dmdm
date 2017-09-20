@@ -32,7 +32,7 @@ body {
     // width: 400px;
     // height: 250px;
     align-items: center;
-    flex-wrap: flex;
+    // flex-wrap: flex;
 
   }
 
@@ -85,6 +85,11 @@ form .form-group {
 
 .inner-all {
     padding: 10px;
+}
+
+.row{
+  display: flex;
+ flex-wrap: wrap;
 }
 
 /* ========================================================================
