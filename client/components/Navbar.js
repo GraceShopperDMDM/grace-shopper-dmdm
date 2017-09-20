@@ -35,9 +35,10 @@ export default class Navbar extends React.Component {
   }
 
   render () {
-    let el = this.handleSubmit()
-    return (
-      <nav className="navbar navbar-default" role="navigation">
+
+  let el = this.handleSubmit()
+  return (
+    <nav className="navbar navbar-default" role="navigation">
 
         <div className="navbar-header">
           <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -101,9 +102,41 @@ export default class Navbar extends React.Component {
             }
           </ul>
         </div>
+<<<<<<< HEAD
       </nav>
     )
   }
+=======
+        <ul className="nav navbar-nav navbar-right">
+          {
+            !this.props.isLoggedIn && <li><Link to="/login">LogIn</Link></li>
+          }
+          {
+            !this.props.isLoggedIn && <li><Link to="/signup">SignUp</Link></li>
+          }
+          {
+            this.props.isLoggedIn && <p>Welcome {this.props.user.username}</p>
+          }
+          {
+            this.props.isLoggedIn && (
+              <li className="dropdown">
+                <a href="#" className="dropdown-toggle" data-toggle="dropdown">Account <b className="caret"></b></a>
+                <ul className="dropdown-menu">
+                  <li><Link to="/myhome">Home</Link></li>
+                  <li><Link to={`/users/${this.props.user.id}/cart`}>Cart</Link></li>
+                  <li><Link to={`/users/${this.props.user.id}/orders`}>My Orders</Link></li>
+                  <li><Link to={`/users/${this.props.user.id}/reviews`}>My Reviews</Link></li>
+                  <li className="divider"></li>
+                  <li><Link onClick={this.props.handleClick} to="/logout">Logout</Link></li>
+                </ul>
+              </li>
+            )
+          }
+        </ul>
+      </div>
+    </nav>
+  )}
+>>>>>>> master
 }
 
 function handleChange (e) {
