@@ -1,13 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {EditReview} from '../store'
+import {EditReview, removeReview} from '../store'
 
 export const EditSingleReview = (props) => {
   let {user, ProdReviews} = props
   if (ProdReviews) {
     let ProdReview = ProdReviews.find(review => +review.id === +props.match.params.reviewId)
-    console.log(ProdReviews, 'USERREVIEWS')
-    console.log(ProdReview, 'CURRREVIEW')
     if (ProdReview) {
       return (
         <div className="container">
@@ -26,14 +24,14 @@ export const EditSingleReview = (props) => {
                   </select>
                   <label>Edit Review</label><input type='text' name="review" className='form-control' defaultValue={ProdReview.body} />
                   <label>Author</label><input type='text' name="author" className='form-control' defaultValue={ProdReview.userId} disabled/>
-                  {
-                    user.isAdmin && ( // this is not safe at all
-                      <button className="btn btn-danger">Delete</button>
-                    )
-                  }
                   <button type="submit">Submit</button>
                 </div>
               </form>
+              {
+                user.isAdmin && (
+                  <button value={ProdReview} className="btn btn-danger" onClick={props.deleteReview}>Delete</button>
+                )
+              }
             </div>
           </div>
         </div>
@@ -61,8 +59,12 @@ const mapDispatch = (dispatch, ownProps) => {
       const body = event.target.review.value
       const userId = +event.target.author.value
       event.preventDefault()
-      console.log({stars, body, id, userId}, 'UPDATEREVIEW')
       dispatch(EditReview({stars, body, userId}, id, ownProps.history))
+    },
+    deleteReview: (e) => {
+      const userId = +ownProps.match.params.id
+      const reviewId = +ownProps.match.params.reviewId
+      dispatch(removeReview(reviewId, userId, ownProps.history))
     }
   }
 }

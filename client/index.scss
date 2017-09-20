@@ -23,7 +23,7 @@ body {
 /*   */
 
 body{margin-top:20px;
-  background:#eee;
+  background:#5a423b;
   }
 
 .btn-compose-email {
@@ -292,7 +292,7 @@ form .form-group {
 .tab-content{padding:20px}
 
 .card {background: #FFF none repeat scroll 0% 0%; box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3); margin-bottom: 30px; }
-body{ background: #EDECEC; padding:50px}
+body{ background: #2B1300 url('http://www.opendesigns.org/od/wp-content/designs/1/1291/img/bg.gif') repeat 0; padding:50px}
 /****** tab *********/
 
 
@@ -307,4 +307,9 @@ i {  vertical-align: middle; }
 }
 .user_panel {
     width: 50%;
+}
+
+img {
+  width: 400px;
+  height: 400px;
 }

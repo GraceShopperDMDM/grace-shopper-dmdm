@@ -8,6 +8,9 @@ const UPDATE_PROD_REVIEW = 'UPDATE_PROD_REVIEW'
 const UPDATE_USER_REVIEW = 'UPDATE_USER_REVIEW'
 const WRITE_USER_REVIEW = 'WRITE_USER_REVIEW'
 const WRITE_PROD_REVIEW = 'WRITE_PROD_REVIEW'
+const DELETE_USER_REVIEW = 'DELETE_USER_REVIEW'
+const DELETE_PROD_REVIEW = 'DELETE_PROD_REVIEW'
+
 // initial state
 const intialState = {
   // reviews: [],
@@ -29,6 +32,10 @@ const getCurrUserReviews = (currUserReviews) => {
     currUserReviews
   }
 }
+
+const deleteUserReview = reviewId => ({type: DELETE_USER_REVIEW, reviewId})
+
+const deleteProdReview = (reviewId) => ({type: DELETE_PROD_REVIEW, reviewId})
 
 const getCurrProdReviews = (currProdReviews) => {
   return {
@@ -119,13 +126,23 @@ export function EditReview (updatedReview, reviewId, history) {
         dispatch(updateUserReview(updatedReview))
         dispatch(updateProdReview(updatedReview))
       })
+      .then(() => history.push(`/users/${updatedReview.userId}/reviews`))
   }
 }
+
+export const removeReview = (reviewId, userId, history) =>
+  dispatch =>
+    axios.delete(`/api/users/${userId}/reviews/${reviewId}`)
+      .then(() => {
+        dispatch(deleteProdReview(+reviewId))
+        dispatch(deleteUserReview(+reviewId))
+      })
+      .then(() => history.push(`/users/${userId}/reviews`))
+      .catch(err => console.log(err))
 
 // reviews reducer
 
 export default function reviewReducer (state = intialState, action) {
-  // console.log(action)
   switch (action.type) {
     // case GET_REVIEWS:
     //   return {
@@ -150,6 +167,10 @@ export default function reviewReducer (state = intialState, action) {
       return Object.assign({}, state, state.currUserReviews.map(review => +review.id !== +action.review.id ? review : action.review))
     case UPDATE_PROD_REVIEW:
       return Object.assign({}, state, state.currProdReviews.map(review => +review.id !== +action.review.id ? review : action.review))
+    case DELETE_USER_REVIEW:
+      return Object.assign({}, state, state.currUserReviews.filter(review => +review.id !== +action.reviewId))
+    case DELETE_PROD_REVIEW:
+      return Object.assign({}, state, state.currProdReviews.filter(review => +review.id !== +action.reviewId))
     default:
       return state
   }

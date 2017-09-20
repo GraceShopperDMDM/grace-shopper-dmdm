@@ -10,7 +10,6 @@ class UserCart extends Component {
 
   componentDidMount () {
     this.props.loadCart()
-    console.log('THIS.PROPS', this.props)
   }
 
   render () {
@@ -77,7 +76,7 @@ class UserCart extends Component {
             </tr>
           </tbody>
         </table>
-        {/* <button onClick={handleCheckout(cartItems)} className="btn btn-default">Checkout</button> */}
+        <button value={cartItems} onClick={handleCheckout} className="btn btn-default">Checkout</button>
       </div>
     )
   }
@@ -113,8 +112,8 @@ const mapDispatch = (dispatch, ownProps) => {
       console.log('target?', cart, userId)
       dispatch(putCart(cart, userId))
     },
-    handleCheckout (cartItems) {
-      dispatch(orderCartThunk(cartItems, ownProps.match.params.id))
+    handleCheckout (e) {
+      dispatch(orderCartThunk(e.target.value, ownProps.match.params.id))
     }
   }
 }
